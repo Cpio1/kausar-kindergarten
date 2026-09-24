@@ -51,7 +51,7 @@ export function Groups() {
                         <span className={cn("size-2 rounded-full", tone.dot)} />
                         {group.level}
                       </span>
-                      <h3 className="mt-4 font-display text-2xl font-semibold text-ink">{group.name}</h3>
+                      <h3 className="mt-4 font-display text-2xl font-bold text-ink">{group.name}</h3>
                       <p className="mt-3 leading-relaxed text-pretty text-ink-soft">{group.text}</p>
                     </div>
                   </article>

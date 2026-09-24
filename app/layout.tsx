@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Nunito, Unbounded } from "next/font/google";
+import { Montserrat, Nunito } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -10,10 +10,11 @@ const nunito = Nunito({
   display: "swap",
 });
 
-const unbounded = Unbounded({
+// Шрифт заголовков: полностью поддерживает казахскую кириллицу (ә ғ қ ң ө ұ ү һ і и заглавные)
+const montserrat = Montserrat({
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
-  weight: ["500", "600"],
-  variable: "--font-unbounded",
+  weight: ["600", "700", "800"],
+  variable: "--font-montserrat",
   display: "swap",
 });
 
@@ -90,7 +91,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="kk" className={`${nunito.variable} ${unbounded.variable}`}>
+    <html lang="kk" className={`${nunito.variable} ${montserrat.variable}`}>
       <body className="font-sans">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {children}

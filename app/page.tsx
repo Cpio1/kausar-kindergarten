@@ -4,6 +4,7 @@ import { About } from "@/components/sections/About";
 import { Advantages } from "@/components/sections/Advantages";
 import { Contacts } from "@/components/sections/Contacts";
 import { DailyLife } from "@/components/sections/DailyLife";
+import { Documents } from "@/components/sections/Documents";
 import { Gallery } from "@/components/sections/Gallery";
 import { Groups } from "@/components/sections/Groups";
 import { Hero } from "@/components/sections/Hero";
@@ -23,6 +24,7 @@ export default function HomePage() {
         <Nutrition />
         <Gallery />
         <Schedule />
+        <Documents />
         <Contacts />
       </main>
       <Footer />

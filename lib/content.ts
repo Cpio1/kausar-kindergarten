@@ -21,6 +21,7 @@ export const navItems = [
   { href: "#groups", label: "Топтар" },
   { href: "#advantages", label: "Артықшылықтар" },
   { href: "#gallery", label: "Фотосуреттер" },
+  { href: "#documents", label: "Құжаттар" },
   { href: "#contacts", label: "Байланыс" },
 ];
 

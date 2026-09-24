@@ -13,6 +13,8 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kausar.kz",
   phone: "+7 775 684 35 93",
   instagram: "https://www.instagram.com/p/DZJ-1qroaRT/?stkn=YjVydHllazg0ODZ6",
+  /** Ссылка на аттестационные документы (Google Drive). Пока временная — замените "#" на настоящую ссылку. */
+  documentsUrl: "#",
   region: "Алматы облысы, Іле ауданы",
   address:
     "Алматы облысы, Іле ауданы, Боралдай округы, Жайнақ ықшам ауданы, Ә. Молдағұлова көшесі, 8 үй",

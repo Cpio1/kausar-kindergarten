@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-unbounded), var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-montserrat), var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
 
   /* Фон: молочный и кремовый */
   --color-milk: #fffdf6;

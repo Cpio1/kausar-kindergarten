@@ -38,7 +38,7 @@ export function About() {
                 <span className={`grid size-12 place-items-center rounded-2xl ${statTones[i]} transition group-hover:rotate-6`}>
                   <Icon className="size-6" />
                 </span>
-                <p className="mt-5 font-display text-2xl font-semibold text-ink sm:text-3xl">{value}</p>
+                <p className="mt-5 font-display text-2xl font-bold text-ink sm:text-3xl">{value}</p>
                 <p className="mt-1 text-sm font-bold text-ink-soft sm:text-base">{label}</p>
               </div>
             </Reveal>

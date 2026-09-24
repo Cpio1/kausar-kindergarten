@@ -40,9 +40,9 @@ export function Nutrition() {
             <div className="relative overflow-hidden rounded-[2rem] bg-lemon-100 p-6 sm:p-7">
               <Leaf className="absolute -right-3 -bottom-3 w-20 -rotate-12 text-lemon-200" />
               <div className="relative flex items-center gap-5">
-                <span className="font-display text-6xl leading-none font-semibold text-lime-600">5</span>
+                <span className="font-display text-6xl leading-none font-bold text-lime-600">5</span>
                 <div>
-                  <p className="font-display text-lg font-semibold text-ink">рет тамақтану</p>
+                  <p className="font-display text-lg font-bold text-ink">рет тамақтану</p>
                   <div className="mt-2 flex gap-1.5" aria-hidden>
                     {Array.from({ length: 5 }, (_, i) => (
                       <span key={i} className="size-3 rounded-full bg-lime-400" style={{ opacity: 0.45 + i * 0.13 }} />

@@ -18,7 +18,7 @@ export function Schedule() {
                 <span className="inline-flex rounded-full bg-lime-100 px-4 py-1.5 text-sm font-bold text-lime-700">
                   Жұмыс уақыты
                 </span>
-                <h2 className="mt-4 font-display text-[1.7rem] leading-tight font-semibold text-balance text-ink sm:text-4xl lg:text-[2.6rem]">
+                <h2 className="mt-4 font-display text-[1.7rem] leading-tight font-bold text-balance text-ink sm:text-4xl lg:text-[2.6rem]">
                   Біз сіздерді күтеміз
                 </h2>
               </div>
@@ -29,8 +29,8 @@ export function Schedule() {
                     <CalendarDays className="size-6" />
                   </span>
                   <p className="mt-5 text-sm font-bold text-ink/70">Жұмыс күндері</p>
-                  <p className="mt-1 font-display text-xl font-semibold text-ink">{site.hours.workdays}</p>
-                  <p className="mt-4 flex items-center gap-2 rounded-2xl bg-white/70 px-4 py-3 font-display text-xl font-semibold whitespace-nowrap text-ink sm:text-2xl">
+                  <p className="mt-1 font-display text-xl font-bold text-ink">{site.hours.workdays}</p>
+                  <p className="mt-4 flex items-center gap-2 rounded-2xl bg-white/70 px-4 py-3 font-display text-xl font-bold whitespace-nowrap text-ink sm:text-2xl">
                     <Clock className="size-5 shrink-0 text-lime-700" />
                     {site.hours.time}
                   </p>
@@ -40,7 +40,7 @@ export function Schedule() {
                     <Coffee className="size-6" />
                   </span>
                   <p className="mt-5 text-sm font-bold text-ink/70">Демалыс</p>
-                  <p className="mt-1 font-display text-xl font-semibold text-ink">{site.hours.weekend}</p>
+                  <p className="mt-1 font-display text-xl font-bold text-ink">{site.hours.weekend}</p>
                   <p className="mt-4 rounded-2xl bg-white/70 px-4 py-3 font-bold text-ink-soft">Демалыс күндері</p>
                 </div>
               </div>

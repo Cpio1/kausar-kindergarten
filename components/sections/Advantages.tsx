@@ -33,7 +33,7 @@ export function Advantages() {
                 <span className={`relative grid size-14 place-items-center rounded-2xl text-lime-700 ${iconTones[i % 3]}`}>
                   <Icon className="size-7" strokeWidth={1.8} />
                 </span>
-                <h3 className="relative mt-6 font-display text-lg font-semibold text-ink sm:text-xl">{title}</h3>
+                <h3 className="relative mt-6 font-display text-lg font-bold text-ink sm:text-xl">{title}</h3>
                 <p className="relative mt-3 leading-relaxed text-pretty text-ink-soft">{text}</p>
               </div>
             </Reveal>

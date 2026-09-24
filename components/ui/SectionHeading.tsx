@@ -19,7 +19,7 @@ export function SectionHeading({ eyebrow, title, subtitle, align = "center", cla
           {eyebrow}
         </span>
       )}
-      <h2 className="font-display text-[1.7rem] leading-tight font-semibold text-balance text-ink sm:text-4xl lg:text-[2.6rem]">
+      <h2 className="font-display text-[1.7rem] leading-tight font-bold text-balance text-ink sm:text-4xl lg:text-[2.6rem]">
         {title}
       </h2>
       {subtitle && <p className="mt-4 text-base leading-relaxed text-pretty text-ink-soft sm:text-lg">{subtitle}</p>}

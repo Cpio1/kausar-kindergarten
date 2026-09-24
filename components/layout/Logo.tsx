@@ -12,7 +12,7 @@ export function Logo({ className, compact = false }: { className?: string; compa
         </svg>
       </span>
       <span className="flex flex-col leading-none">
-        <span className="font-display text-xl font-semibold tracking-tight text-ink">«Кәусар»</span>
+        <span className="font-display text-xl font-bold tracking-tight text-ink">«Кәусар»</span>
         {!compact && (
           <span className="mt-1 text-[0.7rem] font-bold tracking-wide text-ink-soft">бөбекжай балабақшасы</span>
         )}

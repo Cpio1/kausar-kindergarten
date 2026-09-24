@@ -26,7 +26,7 @@ export function Contacts() {
                   </span>
                   <div>
                     <p className="text-sm font-bold text-ink-soft">{site.company}</p>
-                    <p className="font-display text-lg font-semibold text-ink">{site.name}</p>
+                    <p className="font-display text-lg font-bold text-ink">{site.name}</p>
                   </div>
                 </li>
                 <li className="flex gap-4">
@@ -53,7 +53,7 @@ export function Contacts() {
                   </span>
                   <div>
                     <p className="text-sm font-bold text-ink-soft">Телефон</p>
-                    <a href={phoneHref} className="font-display text-xl font-semibold text-ink transition hover:text-lime-700">
+                    <a href={phoneHref} className="font-display text-xl font-bold text-ink transition hover:text-lime-700">
                       {site.phone}
                     </a>
                   </div>
@@ -67,7 +67,7 @@ export function Contacts() {
               <Sun className="absolute -top-10 -right-10 w-36 text-lemon-100/80" />
               <Leaf className="absolute bottom-4 left-[55%] w-14 rotate-12 text-lime-400/40" />
               <div className="relative">
-                <h3 className="font-display text-2xl leading-snug font-semibold text-balance text-ink sm:text-[1.7rem]">
+                <h3 className="font-display text-2xl leading-snug font-bold text-balance text-ink sm:text-[1.7rem]">
                   Балаңызды «Кәусарға» күтеміз!
                 </h3>
                 <p className="mt-3 leading-relaxed text-ink/75">

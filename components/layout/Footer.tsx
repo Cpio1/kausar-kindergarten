@@ -24,7 +24,7 @@ export function Footer() {
           </div>
 
           <nav aria-label="Төменгі мәзір">
-            <h3 className="font-display text-sm font-semibold text-ink">Бөлімдер</h3>
+            <h3 className="font-display text-sm font-bold text-ink">Бөлімдер</h3>
             <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 md:grid-cols-1">
               {navItems.map((item) => (
                 <li key={item.href}>
@@ -37,7 +37,7 @@ export function Footer() {
           </nav>
 
           <div>
-            <h3 className="font-display text-sm font-semibold text-ink">Байланыс</h3>
+            <h3 className="font-display text-sm font-bold text-ink">Байланыс</h3>
             <p className="mt-4 text-sm text-ink-soft">Телефон:</p>
             <a
               href={phoneHref}

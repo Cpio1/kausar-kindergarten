@@ -22,7 +22,7 @@ export function DailyLife() {
               <span className="inline-flex rounded-full bg-white/70 px-4 py-1.5 text-sm font-bold text-lime-700">
                 Күнделікті өмір
               </span>
-              <h2 className="mt-4 font-display text-[1.7rem] leading-tight font-semibold text-balance text-ink sm:text-4xl lg:text-[2.6rem]">
+              <h2 className="mt-4 font-display text-[1.7rem] leading-tight font-bold text-balance text-ink sm:text-4xl lg:text-[2.6rem]">
                 Баланың әр күні – жаңа мүмкіндік
               </h2>
             </Reveal>

@@ -28,7 +28,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={100}>
-            <h1 className="mt-6 font-display text-[2.2rem] leading-[1.12] font-semibold text-balance text-ink sm:text-5xl lg:text-[3.6rem]">
+            <h1 className="mt-6 font-display text-[2.2rem] leading-[1.12] font-bold text-balance text-ink sm:text-5xl lg:text-[3.6rem]">
               Бақытты балалық шақ{" "}
               <span className="relative z-0 inline-block whitespace-nowrap text-lime-600">
                 Кәусардан
@@ -91,7 +91,7 @@ export function Hero() {
             </span>
             <span className="leading-tight">
               <span className="block text-xs font-bold text-ink-soft">{site.hours.workdays}</span>
-              <span className="block font-display text-base font-semibold text-ink">{site.hours.time}</span>
+              <span className="block font-display text-base font-bold text-ink">{site.hours.time}</span>
             </span>
           </div>
         </Reveal>

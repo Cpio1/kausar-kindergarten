@@ -43,13 +43,13 @@ export function Header() {
           <Logo />
         </a>
 
-        <nav aria-label="Негізгі мәзір" className="hidden lg:block">
+        <nav aria-label="Негізгі мәзір" className="hidden xl:block">
           <ul className="flex items-center gap-1">
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="rounded-full px-3.5 py-2 text-[0.93rem] font-bold text-ink-soft transition hover:bg-lime-100 hover:text-ink"
+                  className="rounded-full px-3.5 py-2 text-[0.93rem] font-bold whitespace-nowrap text-ink-soft transition hover:bg-lime-100 hover:text-ink"
                 >
                   {item.label}
                 </a>
@@ -71,7 +71,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Мәзірді жабу" : "Мәзірді ашу"}
-            className="grid size-11 place-items-center rounded-full bg-white text-ink shadow-soft ring-1 ring-lime-100 lg:hidden"
+            className="grid size-11 place-items-center rounded-full bg-white text-ink shadow-soft ring-1 ring-lime-100 xl:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -82,7 +82,7 @@ export function Header() {
       <div
         id="mobile-menu"
         className={cn(
-          "mx-auto mt-2 max-w-7xl origin-top overflow-hidden rounded-[2rem] bg-milk/95 shadow-lift ring-1 ring-lime-100 backdrop-blur-md transition-all duration-300 lg:hidden",
+          "mx-auto mt-2 max-w-7xl origin-top overflow-hidden rounded-[2rem] bg-milk/95 shadow-lift ring-1 ring-lime-100 backdrop-blur-md transition-all duration-300 xl:hidden",
           open ? "visible scale-100 opacity-100" : "invisible scale-95 opacity-0",
         )}
       >
