@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-unbounded), var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+
+  /* Фон: молочный и кремовый */
+  --color-milk: #fffdf6;
+  --color-cream: #faf6e8;
+  --color-cream-deep: #f3edd6;
+
+  /* Текст: глубокий оливково-зелёный вместо чёрного */
+  --color-ink: #2b3a24;
+  --color-ink-soft: #5b6851;
+
+  /* Лаймовый */
+  --color-lime-50: #f5fae8;
+  --color-lime-100: #e9f4cf;
+  --color-lime-200: #d6eaa6;
+  --color-lime-300: #bddc74;
+  --color-lime-400: #a5cc4c;
+  --color-lime-500: #8cb836;
+  --color-lime-600: #6f962a;
+  --color-lime-700: #557323;
+
+  /* Лимонно-жёлтый */
+  --color-lemon-50: #fffbe6;
+  --color-lemon-100: #fff5c2;
+  --color-lemon-200: #ffec94;
+  --color-lemon-300: #fbe06a;
+  --color-lemon-400: #f2cf45;
+
+  /* Светло-зелёный (мятный) */
+  --color-mint-50: #f1f8ec;
+  --color-mint-100: #e2f1d9;
+  --color-mint-200: #cbe6bd;
+
+  --shadow-soft: 0 10px 30px -12px rgb(85 115 35 / 0.18), 0 2px 6px -2px rgb(85 115 35 / 0.08);
+  --shadow-lift: 0 22px 50px -18px rgb(85 115 35 / 0.28), 0 4px 10px -4px rgb(85 115 35 / 0.1);
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-spin-slow: spin 40s linear infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(3deg);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Отступ под фиксированный header при переходе по якорям */
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-milk);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-lemon-200);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-lime-400);
+  outline-offset: 3px;
+  border-radius: 0.75rem;
+}
+
+/* Анимация появления при прокрутке (см. components/ui/Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
