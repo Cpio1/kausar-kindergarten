@@ -10,7 +10,7 @@ export function DailyLife() {
   const photos = getDailyPhotos();
 
   return (
-    <section className="px-3 sm:px-5">
+    <section className="px-3 pt-10 sm:px-5 sm:pt-14">
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-linear-to-br from-lime-200 via-lime-100 to-lemon-100 px-5 py-14 sm:rounded-[3.5rem] sm:px-10 sm:py-20 lg:px-16">
         <Sun className="absolute -top-12 -right-12 w-44 text-lemon-300/70" />
         <Cloud className="absolute bottom-8 left-[45%] hidden w-32 text-white/60 lg:block" />

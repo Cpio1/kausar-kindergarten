@@ -1,7 +1,6 @@
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { About } from "@/components/sections/About";
-import { Advantages } from "@/components/sections/Advantages";
 import { Contacts } from "@/components/sections/Contacts";
 import { DailyLife } from "@/components/sections/DailyLife";
 import { Documents } from "@/components/sections/Documents";
@@ -19,7 +18,6 @@ export default function HomePage() {
         <Hero />
         <About />
         <Groups />
-        <Advantages />
         <DailyLife />
         <Nutrition />
         <Gallery />

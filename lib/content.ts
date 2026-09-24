@@ -1,15 +1,10 @@
 import {
-  Apple,
   Baby,
   Bike,
   Brain,
-  HeartHandshake,
   Languages,
-  Lightbulb,
   Palette,
-  ShieldCheck,
   Sparkles,
-  UserRound,
   UsersRound,
   UtensilsCrossed,
   type LucideIcon,
@@ -19,7 +14,6 @@ export const navItems = [
   { href: "#home", label: "Басты бет" },
   { href: "#about", label: "Біз туралы" },
   { href: "#groups", label: "Топтар" },
-  { href: "#advantages", label: "Артықшылықтар" },
   { href: "#gallery", label: "Фотосуреттер" },
   { href: "#documents", label: "Құжаттар" },
   { href: "#contacts", label: "Байланыс" },
@@ -66,41 +60,6 @@ export const groups: Group[] = [
     level: "Ересек топ",
     text: "Балалардың дербестігін, білімге деген қызығушылығын және мектепке дайындық дағдыларын дамытуға бағытталған топ.",
     tone: "lime",
-  },
-];
-
-export type Feature = { icon: LucideIcon; title: string; text: string };
-
-export const advantages: Feature[] = [
-  {
-    icon: UserRound,
-    title: "Жеке көзқарас",
-    text: "Әр баланың мінезі, қызығушылығы мен даму ерекшеліктерін ескереміз.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Дамытушы сабақтар",
-    text: "Балалардың ойлау, сөйлеу, шығармашылық және танымдық қабілеттерін дамытуға көмектесеміз.",
-  },
-  {
-    icon: Apple,
-    title: "5 рет тамақтану",
-    text: "Балаларға күн бойы құнарлы әрі теңгерімді тамақ ұсынылады.",
-  },
-  {
-    icon: HeartHandshake,
-    title: "Қамқор тәрбиешілер",
-    text: "Балаларға мейірімділікпен және үлкен жауапкершілікпен қараймыз.",
-  },
-  {
-    icon: Languages,
-    title: "Қазақ тіліндегі тәрбие",
-    text: "Балалардың ана тілінде еркін сөйлеп, ұлттық құндылықтарды бойына сіңіруіне жағдай жасаймыз.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Қауіпсіз және жайлы орта",
-    text: "Балалардың күнделікті өзін еркін әрі қауіпсіз сезінуіне ерекше мән береміз.",
   },
 ];
 
