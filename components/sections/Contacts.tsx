@@ -1,4 +1,7 @@
+"use client";
+
 import { Building2, MapPin, Navigation, Phone } from "lucide-react";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { mapHref, phoneHref, site } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Leaf, Sun } from "@/components/ui/Decor";
@@ -7,13 +10,15 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Contacts() {
+  const { t } = useI18n();
+
   return (
     <section id="contacts" className="relative overflow-hidden pb-20 sm:pb-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Байланыс"
-          title="Бізбен байланысыңыз"
-          subtitle="Сұрақтарыңыз болса, қоңырау шалыңыз немесе Instagram арқылы жазыңыз."
+          eyebrow={t.contacts.eyebrow}
+          title={t.contacts.title}
+          subtitle={t.contacts.subtitle}
         />
 
         <div className="mt-14 grid gap-5 lg:grid-cols-[1.25fr_1fr]">
@@ -26,7 +31,7 @@ export function Contacts() {
                   </span>
                   <div>
                     <p className="text-sm font-bold text-ink-soft">{site.company}</p>
-                    <p className="font-display text-lg font-bold text-ink">{site.name}</p>
+                    <p className="font-display text-lg font-bold text-ink">{t.site.name}</p>
                   </div>
                 </li>
                 <li className="flex gap-4">
@@ -34,8 +39,8 @@ export function Contacts() {
                     <MapPin className="size-6" />
                   </span>
                   <div>
-                    <p className="text-sm font-bold text-ink-soft">Мекенжай</p>
-                    <address className="leading-relaxed font-semibold text-pretty text-ink not-italic">{site.address}</address>
+                    <p className="text-sm font-bold text-ink-soft">{t.contacts.addressLabel}</p>
+                    <address className="leading-relaxed font-semibold text-pretty text-ink not-italic">{t.site.address}</address>
                     <a
                       href={mapHref}
                       target="_blank"
@@ -43,7 +48,7 @@ export function Contacts() {
                       className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-lime-700 underline-offset-4 hover:underline"
                     >
                       <Navigation className="size-3.5" />
-                      Картадан ашу
+                      {t.contacts.openMap}
                     </a>
                   </div>
                 </li>
@@ -52,7 +57,7 @@ export function Contacts() {
                     <Phone className="size-6" />
                   </span>
                   <div>
-                    <p className="text-sm font-bold text-ink-soft">Телефон</p>
+                    <p className="text-sm font-bold text-ink-soft">{t.contacts.phoneLabel}</p>
                     <a href={phoneHref} className="font-display text-xl font-bold text-ink transition hover:text-lime-700">
                       {site.phone}
                     </a>
@@ -68,16 +73,16 @@ export function Contacts() {
               <Leaf className="absolute bottom-4 left-[55%] w-14 rotate-12 text-lime-400/40" />
               <div className="relative">
                 <h3 className="font-display text-2xl leading-snug font-bold text-balance text-ink sm:text-[1.7rem]">
-                  Балаңызды «Кәусарға» күтеміз!
+                  {t.contacts.ctaTitle}
                 </h3>
                 <p className="mt-3 leading-relaxed text-ink/75">
-                  Балабақшамен танысуға, топтар мен орындар туралы білуге қоңырау шалыңыз.
+                  {t.contacts.ctaText}
                 </p>
               </div>
               <div className="relative mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 <ButtonLink href={phoneHref} variant="secondary">
                   <Phone className="size-4 text-lime-600" />
-                  Қоңырау шалу
+                  {t.contacts.call}
                 </ButtonLink>
                 <ButtonLink href={site.instagram} target="_blank" rel="noopener noreferrer" variant="secondary">
                   <InstagramIcon className="size-4 text-lime-600" />

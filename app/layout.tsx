@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Nunito } from "next/font/google";
+import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -94,7 +95,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="kk" className={`${nunito.variable} ${montserrat.variable}`}>
       <body className="font-sans">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

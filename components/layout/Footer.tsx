@@ -1,11 +1,16 @@
+"use client";
+
 import { MapPin, Phone } from "lucide-react";
 import { navItems } from "@/lib/content";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { phoneHref, site } from "@/lib/site";
 import { InstagramIcon } from "@/components/ui/InstagramIcon";
 import { Leaf, Star } from "@/components/ui/Decor";
 import { Logo } from "./Logo";
 
 export function Footer() {
+  const { t } = useI18n();
+
   return (
     <footer className="relative overflow-hidden bg-lime-100/70 pt-16 pb-8">
       <Leaf className="absolute -top-4 right-[8%] w-16 rotate-45 text-lime-200" />
@@ -16,20 +21,20 @@ export function Footer() {
           <div>
             <Logo />
             <p className="mt-5 text-sm font-bold text-ink-soft">{site.company}</p>
-            <p className="font-bold text-ink">{site.name}</p>
+            <p className="font-bold text-ink">{t.site.name}</p>
             <p className="mt-3 flex items-start gap-2 text-sm text-ink-soft">
               <MapPin className="mt-0.5 size-4 shrink-0 text-lime-600" />
-              {site.region}
+              {t.site.region}
             </p>
           </div>
 
-          <nav aria-label="Төменгі мәзір">
-            <h3 className="font-display text-sm font-bold text-ink">Бөлімдер</h3>
+          <nav aria-label={t.footer.nav}>
+            <h3 className="font-display text-sm font-bold text-ink">{t.footer.sections}</h3>
             <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 md:grid-cols-1">
               {navItems.map((item) => (
                 <li key={item.href}>
                   <a href={item.href} className="text-sm font-semibold text-ink-soft transition hover:text-lime-700">
-                    {item.label}
+                    {t.nav[item.key]}
                   </a>
                 </li>
               ))}
@@ -37,8 +42,8 @@ export function Footer() {
           </nav>
 
           <div>
-            <h3 className="font-display text-sm font-bold text-ink">Байланыс</h3>
-            <p className="mt-4 text-sm text-ink-soft">Телефон:</p>
+            <h3 className="font-display text-sm font-bold text-ink">{t.footer.contacts}</h3>
+            <p className="mt-4 text-sm text-ink-soft">{t.footer.phone}</p>
             <a
               href={phoneHref}
               className="mt-1 inline-flex items-center gap-2 text-lg font-extrabold text-ink transition hover:text-lime-700"
@@ -59,7 +64,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-lime-200 pt-6 text-center text-sm text-ink-soft">
-          © 2026 «Кәусар» бөбекжай балабақшасы. Барлық құқықтар қорғалған.
+          {t.footer.copyright}
         </div>
       </div>
     </footer>

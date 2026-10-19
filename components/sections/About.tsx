@@ -1,5 +1,8 @@
-import { aboutStats } from "@/lib/content";
-import { getAboutPhoto } from "@/lib/images";
+"use client";
+
+import { aboutStatIcons } from "@/lib/content";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
+import type { Photo } from "@/lib/images";
 import { Leaf, Star } from "@/components/ui/Decor";
 import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { Reveal } from "@/components/ui/Reveal";
@@ -12,9 +15,10 @@ const statTones = [
   "bg-lemon-50 text-lime-700 ring-1 ring-lemon-200",
 ];
 
-export function About() {
-  // Фото появляется, только если в public/images добавлен main-page2
-  const photo = getAboutPhoto();
+/** photo — main-page2 из public/images; если его нет, блок выглядит как раньше */
+export function About({ photo }: { photo: Photo | null }) {
+  const { t } = useI18n();
+  const stats = t.about.stats.map((stat, i) => ({ ...stat, icon: aboutStatIcons[i] }));
 
   return (
     <section id="about" className="relative overflow-hidden py-20 sm:py-28">
@@ -23,15 +27,13 @@ export function About() {
 
       <div className="relative mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-20 lg:px-8">
         <div>
-          <SectionHeading eyebrow="Біз туралы" title="Кәусар балабақшасы туралы" align="left" />
+          <SectionHeading eyebrow={t.about.eyebrow} title={t.about.title} align="left" />
           <Reveal delay={100} className="mt-6 space-y-5 text-lg leading-relaxed text-pretty text-ink-soft">
             <p>
-              <strong className="font-extrabold text-ink">«Кәусар» бөбекжай балабақшасы</strong> – балалардың қауіпсіз,
-              жайлы және мейірімді ортада өсіп, білім алып, жан-жақты дамуына жағдай жасайтын балабақша.
+              <strong className="font-extrabold text-ink">{t.about.introStrong}</strong> {t.about.introRest}
             </p>
             <p className="rounded-3xl border-l-4 border-lime-400 bg-lime-50 px-6 py-5 text-ink">
-              Біздің мақсатымыз – әр баланың жеке ерекшелігін ескеріп, оның шығармашылық, танымдық және әлеуметтік
-              қабілеттерін дамыту.
+              {t.about.goal}
             </p>
           </Reveal>
         </div>
@@ -45,6 +47,7 @@ export function About() {
               />
               <PhotoFrame
                 photo={photo}
+                alt={t.about.photoAlt}
                 sizes="(min-width: 1024px) 560px, 92vw"
                 className="aspect-[16/10] rounded-[2.5rem] rounded-br-[6rem] shadow-soft ring-4 ring-white"
               />
@@ -52,7 +55,7 @@ export function About() {
           )}
 
           <ul className="grid grid-cols-2 gap-4 sm:gap-5">
-            {aboutStats.map(({ icon: Icon, value, label }, i) => (
+            {stats.map(({ icon: Icon, value, label }, i) => (
               <Reveal as="li" key={value} delay={i * 100}>
                 <div className="group h-full rounded-[2rem] bg-white p-5 shadow-soft ring-1 ring-lime-100/70 transition duration-300 hover:-translate-y-1 hover:shadow-lift sm:p-7">
                   <span className={`grid size-12 place-items-center rounded-2xl ${statTones[i]} transition group-hover:rotate-6`}>

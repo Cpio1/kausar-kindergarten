@@ -1,7 +1,11 @@
+"use client";
+
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
 
 /** Логотип: солнце-листок + название. */
 export function Logo({ className, compact = false }: { className?: string; compact?: boolean }) {
+  const { t } = useI18n();
   return (
     <span className={cn("flex items-center gap-3", className)}>
       <span className="relative grid size-11 shrink-0 place-items-center rounded-2xl bg-lemon-200 shadow-soft">
@@ -14,7 +18,7 @@ export function Logo({ className, compact = false }: { className?: string; compa
       <span className="flex flex-col leading-none">
         <span className="font-display text-xl font-bold tracking-tight text-ink">«Кәусар»</span>
         {!compact && (
-          <span className="mt-1 text-[0.7rem] font-bold tracking-wide text-ink-soft">бөбекжай балабақшасы</span>
+          <span className="mt-1 text-[0.7rem] font-bold tracking-wide text-ink-soft">{t.site.logoSubtitle}</span>
         )}
       </span>
     </span>

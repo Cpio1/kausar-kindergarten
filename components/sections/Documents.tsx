@@ -1,4 +1,7 @@
+"use client";
+
 import { ExternalLink, FileText } from "lucide-react";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { site } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Leaf, Star } from "@/components/ui/Decor";
@@ -6,6 +9,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Documents() {
+  const { t } = useI18n();
+
   return (
     <section id="documents" className="relative overflow-hidden pb-20 sm:pb-28">
       <Leaf className="absolute top-10 left-[6%] w-12 -rotate-12 text-lime-200" />
@@ -13,9 +18,9 @@ export function Documents() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Құжаттар"
-          title="Құжаттар"
-          subtitle="Балабақшаға қатысты қажетті құжаттармен танысыңыз."
+          eyebrow={t.documents.eyebrow}
+          title={t.documents.title}
+          subtitle={t.documents.subtitle}
         />
 
         <Reveal delay={100} className="mx-auto mt-14 max-w-3xl">
@@ -35,9 +40,9 @@ export function Documents() {
               </div>
 
               <div className="flex-1 text-center sm:text-left">
-                <h3 className="font-display text-xl font-bold text-ink sm:text-2xl">Аттестаттау құжаттары</h3>
+                <h3 className="font-display text-xl font-bold text-ink sm:text-2xl">{t.documents.cardTitle}</h3>
                 <p className="mt-3 leading-relaxed text-pretty text-ink-soft">
-                  Құжаттарды Google Drive арқылы көру үшін төмендегі батырманы басыңыз.
+                  {t.documents.cardText}
                 </p>
                 <ButtonLink
                   href={site.documentsUrl}
@@ -45,7 +50,7 @@ export function Documents() {
                   rel="noopener noreferrer"
                   className="mt-6 w-full sm:w-auto"
                 >
-                  Құжаттарды көру
+                  {t.documents.button}
                   <ExternalLink className="size-4" />
                 </ButtonLink>
               </div>

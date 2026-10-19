@@ -1,11 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
 import type { Photo } from "@/lib/images";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { Cloud, Leaf, Sun } from "./Decor";
 
 type PhotoFrameProps = {
   photo: Photo | null;
+  /** Подпись фото на текущем языке; по умолчанию — photo.alt */
+  alt?: string;
   /** Значение атрибута sizes для next/image */
   sizes: string;
   className?: string;
@@ -28,6 +33,7 @@ const toneStyles = {
  */
 export function PhotoFrame({
   photo,
+  alt,
   sizes,
   className,
   imageClassName,
@@ -35,12 +41,14 @@ export function PhotoFrame({
   placeholderLabel,
   tone = "lime",
 }: PhotoFrameProps) {
+  const { t } = useI18n();
+  const placeholder = placeholderLabel ?? t.photo.placeholder;
   return (
     <div className={cn("relative overflow-hidden", className)}>
       {photo ? (
         <Image
           src={photo.src}
-          alt={photo.alt}
+          alt={alt ?? photo.alt}
           fill
           sizes={sizes}
           priority={priority}
@@ -48,7 +56,7 @@ export function PhotoFrame({
           style={{ objectPosition: photo.position }}
         />
       ) : (
-        <div className={cn("absolute inset-0 bg-linear-to-br", toneStyles[tone])} role="img" aria-label={placeholderLabel ?? "Фото жақында қосылады"}>
+        <div className={cn("absolute inset-0 bg-linear-to-br", toneStyles[tone])} role="img" aria-label={placeholder}>
           <Sun className="absolute -right-6 -top-6 w-28 text-lemon-300/80" />
           <Cloud className="absolute bottom-6 left-4 w-24 text-white/80" />
           <Leaf className="absolute bottom-10 right-8 w-10 rotate-12 opacity-60" />

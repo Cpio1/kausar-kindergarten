@@ -1,13 +1,17 @@
-import { dailyActivities } from "@/lib/content";
-import { getDailyPhotos } from "@/lib/images";
+"use client";
+
+import { dailyActivityIcons } from "@/lib/content";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
+import type { Photo } from "@/lib/images";
 import { Cloud, Leaf, Sun } from "@/components/ui/Decor";
 import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { Reveal } from "@/components/ui/Reveal";
 
 const activityTones = ["bg-lemon-200", "bg-white", "bg-white", "bg-lemon-200"];
 
-export function DailyLife() {
-  const photos = getDailyPhotos();
+export function DailyLife({ photos }: { photos: Photo[] }) {
+  const { t } = useI18n();
+  const activities = t.daily.activities.map((title, i) => ({ title, icon: dailyActivityIcons[i] }));
 
   return (
     <section className="px-3 pt-10 sm:px-5 sm:pt-14">
@@ -20,21 +24,20 @@ export function DailyLife() {
           <div>
             <Reveal>
               <span className="inline-flex rounded-full bg-white/70 px-4 py-1.5 text-sm font-bold text-lime-700">
-                Күнделікті өмір
+                {t.daily.eyebrow}
               </span>
               <h2 className="mt-4 font-display text-[1.7rem] leading-tight font-bold text-balance text-ink sm:text-4xl lg:text-[2.6rem]">
-                Баланың әр күні – жаңа мүмкіндік
+                {t.daily.title}
               </h2>
             </Reveal>
             <Reveal delay={100} className="mt-6 space-y-4 text-lg leading-relaxed text-pretty text-ink/80">
-              <p>
-                «Кәусар» балабақшасында әр күн қызықты сабақтарға, ойындарға, шығармашылыққа және жаңа жаңалықтарға толы.
-              </p>
-              <p>Балалар бірге ойнап, білім алып, достасып, өз қабілеттерін ашады.</p>
+              {t.daily.paragraphs.map((text) => (
+                <p key={text}>{text}</p>
+              ))}
             </Reveal>
 
             <ul className="mt-8 grid grid-cols-2 gap-3">
-              {dailyActivities.map(({ icon: Icon, title }, i) => (
+              {activities.map(({ icon: Icon, title }, i) => (
                 <Reveal as="li" key={title} delay={150 + i * 80}>
                   <div className="flex h-full flex-col items-start gap-2.5 rounded-3xl bg-white/85 p-3 pr-4 sm:flex-row sm:items-center sm:gap-3 shadow-soft backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:bg-white">
                     <span className={`grid size-11 shrink-0 place-items-center rounded-2xl text-lime-700 ${activityTones[i]} ring-1 ring-lime-200`}>
@@ -53,21 +56,24 @@ export function DailyLife() {
               photo={photos[0] ?? null}
               tone="lemon"
               sizes="(min-width: 1024px) 300px, 45vw"
-              placeholderLabel="Сабақ сәті"
+              alt={t.daily.photoAlt}
+              placeholderLabel={t.daily.photoPlaceholders[0]}
               className="row-span-2 min-h-72 rounded-[2rem] ring-4 ring-white/70 sm:min-h-[26rem]"
             />
             <PhotoFrame
               photo={photos[1] ?? null}
               tone="mint"
               sizes="(min-width: 1024px) 300px, 45vw"
-              placeholderLabel="Ойын уақыты"
+              alt={t.daily.photoAlt}
+              placeholderLabel={t.daily.photoPlaceholders[1]}
               className="aspect-square rounded-[2rem] rounded-tr-[4rem] ring-4 ring-white/70"
             />
             <PhotoFrame
               photo={photos[2] ?? null}
               tone="lime"
               sizes="(min-width: 1024px) 300px, 45vw"
-              placeholderLabel="Шығармашылық"
+              alt={t.daily.photoAlt}
+              placeholderLabel={t.daily.photoPlaceholders[2]}
               className="aspect-square rounded-[2rem] rounded-br-[4rem] ring-4 ring-white/70"
             />
           </Reveal>

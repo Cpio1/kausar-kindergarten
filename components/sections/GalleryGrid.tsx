@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, X } from "lucide-react";
 import type { Photo } from "@/lib/images";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -60,6 +61,7 @@ const tileSizes = {
 const placeholderSpans = ["col-span-2 row-span-2", "row-span-2", "", "", "col-span-2", "row-span-2", "", ""];
 
 export function GalleryGrid({ photos }: { photos: Photo[] }) {
+  const { t } = useI18n();
   const [active, setActive] = useState<number | null>(null);
   const [expanded, setExpanded] = useState(false);
   const gridRef = useRef<HTMLUListElement>(null);
@@ -103,12 +105,13 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
             </li>
           ))}
         </ul>
-        <p className="mt-6 text-center font-semibold text-ink-soft">Фотосуреттер жақында қосылады</p>
+        <p className="mt-6 text-center font-semibold text-ink-soft">{t.gallery.empty}</p>
       </div>
     );
   }
 
   const current = active === null ? null : photos[active];
+  const altOf = (i: number) => t.gallery.photoAlt(i + 1);
   const visible = expanded ? photos : photos.slice(0, INITIAL_COUNT);
 
   const toggle = () => {
@@ -133,7 +136,7 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
               <button
                 type="button"
                 onClick={() => setActive(i)}
-                aria-label={`Фотоны үлкейту: ${photo.alt}`}
+                aria-label={`${t.gallery.zoom}: ${altOf(i)}`}
                 className={cn(
                   "group relative block size-full overflow-hidden bg-lime-50 shadow-soft ring-4 ring-white transition duration-300 hover:shadow-lift",
                   tile.shape,
@@ -141,7 +144,7 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
               >
                 <Image
                   src={photo.src}
-                  alt={photo.alt}
+                  alt={altOf(i)}
                   fill
                   sizes={tileSizes[tile.size]}
                   className={cn(
@@ -166,29 +169,29 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
             aria-controls="gallery-grid"
             className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-[0.95rem] font-extrabold text-ink shadow-soft ring-1 ring-lime-200 transition duration-300 hover:-translate-y-0.5 hover:ring-lime-300 sm:w-auto"
           >
-            {expanded ? "Жасыру" : "Тағы көру"}
+            {expanded ? t.gallery.showLess : t.gallery.showMore}
             {expanded ? <ChevronUp className="size-4 text-lime-600" /> : <ChevronDown className="size-4 text-lime-600" />}
           </button>
         </div>
       )}
 
       {/* Просмотр фото целиком, без обрезки */}
-      {current && (
+      {current && active !== null && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={current.alt}
+          aria-label={altOf(active)}
           className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/85 p-4 backdrop-blur-sm"
           onClick={close}
         >
           <div className="relative h-[80vh] w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <Image src={current.src} alt={current.alt} fill sizes="100vw" className="object-contain" />
+            <Image src={current.src} alt={altOf(active)} fill sizes="100vw" className="object-contain" />
           </div>
 
           <button
             type="button"
             onClick={close}
-            aria-label="Жабу"
+            aria-label={t.gallery.close}
             className="absolute top-4 right-4 grid size-12 place-items-center rounded-full bg-white/90 text-ink transition hover:bg-white"
           >
             <X className="size-5" />
@@ -202,7 +205,7 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
                   e.stopPropagation();
                   step(dir);
                 }}
-                aria-label={dir === -1 ? "Алдыңғы фото" : "Келесі фото"}
+                aria-label={dir === -1 ? t.gallery.prev : t.gallery.next}
                 className={cn(
                   "absolute top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink transition hover:bg-white",
                   dir === -1 ? "left-3 sm:left-6" : "right-3 sm:right-6",

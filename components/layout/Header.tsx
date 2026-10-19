@@ -5,9 +5,12 @@ import { Menu, Phone, X } from "lucide-react";
 import { navItems } from "@/lib/content";
 import { phoneHref, site } from "@/lib/site";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Logo } from "./Logo";
 
 export function Header() {
+  const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -39,11 +42,11 @@ export function Header() {
           scrolled || open ? "bg-milk/90 shadow-soft ring-1 ring-lime-100 backdrop-blur-md" : "bg-transparent",
         )}
       >
-        <a href="#home" onClick={close} aria-label="«Кәусар» — басты бет" className="rounded-2xl pl-1">
+        <a href="#home" onClick={close} aria-label={t.header.homeLink} className="rounded-2xl pl-1">
           <Logo />
         </a>
 
-        <nav aria-label="Негізгі мәзір" className="hidden xl:block">
+        <nav aria-label={t.header.mainNav} className="hidden xl:block">
           <ul className="flex items-center gap-1">
             {navItems.map((item) => (
               <li key={item.href}>
@@ -51,7 +54,7 @@ export function Header() {
                   href={item.href}
                   className="rounded-full px-3.5 py-2 text-[0.93rem] font-bold whitespace-nowrap text-ink-soft transition hover:bg-lime-100 hover:text-ink"
                 >
-                  {item.label}
+                  {t.nav[item.key]}
                 </a>
               </li>
             ))}
@@ -59,18 +62,19 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <a
             href="#contacts"
             className="hidden rounded-full bg-lime-400 px-5 py-3 text-sm font-extrabold text-ink shadow-[0_10px_24px_-12px_rgb(111_150_42/0.8)] transition hover:-translate-y-0.5 hover:bg-lime-300 sm:inline-flex"
           >
-            Бізбен байланысу
+            {t.header.contact}
           </a>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? "Мәзірді жабу" : "Мәзірді ашу"}
+            aria-label={open ? t.header.closeMenu : t.header.openMenu}
             className="grid size-11 place-items-center rounded-full bg-white text-ink shadow-soft ring-1 ring-lime-100 xl:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -86,7 +90,7 @@ export function Header() {
           open ? "visible scale-100 opacity-100" : "invisible scale-95 opacity-0",
         )}
       >
-        <nav aria-label="Мобильді мәзір" className="p-4">
+        <nav aria-label={t.header.mobileNav} className="p-4">
           <ul className="grid gap-1">
             {navItems.map((item) => (
               <li key={item.href}>
@@ -96,7 +100,7 @@ export function Header() {
                   tabIndex={open ? 0 : -1}
                   className="block rounded-2xl px-4 py-3 text-lg font-bold text-ink transition hover:bg-lime-100"
                 >
-                  {item.label}
+                  {t.nav[item.key]}
                 </a>
               </li>
             ))}
@@ -108,7 +112,7 @@ export function Header() {
               tabIndex={open ? 0 : -1}
               className="rounded-full bg-lime-400 px-5 py-3.5 text-center font-extrabold text-ink"
             >
-              Бізбен байланысу
+              {t.header.contact}
             </a>
             <a
               href={phoneHref}

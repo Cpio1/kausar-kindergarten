@@ -1,9 +1,14 @@
+"use client";
+
 import { CalendarDays, Clock, Coffee } from "lucide-react";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { site } from "@/lib/site";
 import { Cloud, Star, Sun } from "@/components/ui/Decor";
 import { Reveal } from "@/components/ui/Reveal";
 
 export function Schedule() {
+  const { t } = useI18n();
+
   return (
     <section id="schedule" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -16,10 +21,10 @@ export function Schedule() {
             <div className="relative grid items-center gap-10 lg:grid-cols-[1fr_1.6fr]">
               <div className="text-center lg:text-left">
                 <span className="inline-flex rounded-full bg-lime-100 px-4 py-1.5 text-sm font-bold text-lime-700">
-                  Жұмыс уақыты
+                  {t.schedule.eyebrow}
                 </span>
                 <h2 className="mt-4 font-display text-[1.7rem] leading-tight font-bold text-balance text-ink sm:text-4xl lg:text-[2.6rem]">
-                  Біз сіздерді күтеміз
+                  {t.schedule.title}
                 </h2>
               </div>
 
@@ -28,8 +33,8 @@ export function Schedule() {
                   <span className="grid size-12 place-items-center rounded-2xl bg-white/70 text-lime-700">
                     <CalendarDays className="size-6" />
                   </span>
-                  <p className="mt-5 text-sm font-bold text-ink/70">Жұмыс күндері</p>
-                  <p className="mt-1 font-display text-xl font-bold text-ink">{site.hours.workdays}</p>
+                  <p className="mt-5 text-sm font-bold text-ink/70">{t.schedule.workdaysLabel}</p>
+                  <p className="mt-1 font-display text-xl font-bold text-ink">{t.site.workdays}</p>
                   <p className="mt-4 flex items-center gap-2 rounded-2xl bg-white/70 px-4 py-3 font-display text-xl font-bold whitespace-nowrap text-ink sm:text-2xl">
                     <Clock className="size-5 shrink-0 text-lime-700" />
                     {site.hours.time}
@@ -39,9 +44,9 @@ export function Schedule() {
                   <span className="grid size-12 place-items-center rounded-2xl bg-white/70 text-lime-700">
                     <Coffee className="size-6" />
                   </span>
-                  <p className="mt-5 text-sm font-bold text-ink/70">Демалыс</p>
-                  <p className="mt-1 font-display text-xl font-bold text-ink">{site.hours.weekend}</p>
-                  <p className="mt-4 rounded-2xl bg-white/70 px-4 py-3 font-bold text-ink-soft">Демалыс күндері</p>
+                  <p className="mt-5 text-sm font-bold text-ink/70">{t.schedule.weekendLabel}</p>
+                  <p className="mt-1 font-display text-xl font-bold text-ink">{t.site.weekend}</p>
+                  <p className="mt-4 rounded-2xl bg-white/70 px-4 py-3 font-bold text-ink-soft">{t.schedule.weekendNote}</p>
                 </div>
               </div>
             </div>
