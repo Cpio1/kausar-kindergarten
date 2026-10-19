@@ -69,7 +69,7 @@ export function Groups() {
                       <Blob className={cn("absolute inset-0 m-auto h-[88%] w-[78%] rotate-12", tone.blob)} />
                       <GroupIllustration
                         slug={group.slug}
-                        className="absolute inset-0 m-auto h-[72%] w-[80%] transition duration-700 ease-out group-hover:-translate-y-1 group-hover:scale-[1.03]"
+                        className="absolute inset-0 m-auto h-[58%] w-[64%] transition duration-700 sm:h-[61%] sm:w-[68%] lg:h-[63%] lg:w-[70%] ease-out group-hover:-translate-y-1 group-hover:scale-[1.03]"
                       />
                     </div>
                     <div className="flex flex-1 flex-col px-4 pt-6 pb-5">
