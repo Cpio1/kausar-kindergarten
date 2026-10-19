@@ -2,21 +2,34 @@
 
 import { groups, type Group } from "@/lib/content";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
-import type { Photo } from "@/lib/images";
 import { cn } from "@/lib/cn";
-import { Leaf, Sun, Wave } from "@/components/ui/Decor";
-import { PhotoFrame } from "@/components/ui/PhotoFrame";
+import { Blob, Leaf, Sun, Wave } from "@/components/ui/Decor";
+import { GroupIllustration } from "@/components/ui/GroupIllustrations";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
-const tones: Record<Group["tone"], { badge: string; card: string }> = {
-  mint: { badge: "bg-mint-100 text-lime-700", card: "hover:ring-mint-200" },
-  lemon: { badge: "bg-lemon-100 text-lime-700", card: "hover:ring-lemon-200" },
-  lime: { badge: "bg-lime-100 text-lime-700", card: "hover:ring-lime-200" },
+const tones: Record<Group["tone"], { badge: string; card: string; art: string; blob: string }> = {
+  mint: {
+    badge: "bg-mint-100 text-lime-700",
+    card: "hover:ring-mint-200",
+    art: "from-mint-50 via-lime-50 to-milk",
+    blob: "text-mint-100",
+  },
+  lemon: {
+    badge: "bg-lemon-100 text-lime-700",
+    card: "hover:ring-lemon-200",
+    art: "from-lemon-50 via-milk to-lemon-50",
+    blob: "text-lemon-100",
+  },
+  lime: {
+    badge: "bg-lime-100 text-lime-700",
+    card: "hover:ring-lime-200",
+    art: "from-milk via-cream to-lime-50",
+    blob: "text-lime-100/80",
+  },
 };
 
-/** photos — по порядку groups */
-export function Groups({ photos }: { photos: (Photo | null)[] }) {
+export function Groups() {
   const { t } = useI18n();
 
   return (
@@ -45,15 +58,20 @@ export function Groups({ photos }: { photos: (Photo | null)[] }) {
                       tone.card,
                     )}
                   >
-                    <PhotoFrame
-                      photo={photos[i] ?? null}
-                      alt={t.groups.photoAlt(group.name)}
-                      tone={group.tone}
-                      sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 92vw"
-                      placeholderLabel={t.groups.photoPlaceholder(group.name)}
-                      className={cn("rounded-[1.75rem]", i === 2 ? "aspect-[4/3] md:aspect-[16/7] lg:aspect-[4/3]" : "aspect-[4/3]")}
-                      imageClassName="transition duration-700 group-hover:scale-105"
-                    />
+                    {/* Декоративная композиция вместо фото — та же высота и скругление */}
+                    <div
+                      className={cn(
+                        "relative overflow-hidden rounded-[1.75rem] bg-linear-to-br",
+                        tone.art,
+                        i === 2 ? "aspect-[4/3] md:aspect-[16/7] lg:aspect-[4/3]" : "aspect-[4/3]",
+                      )}
+                    >
+                      <Blob className={cn("absolute inset-0 m-auto h-[88%] w-[78%] rotate-12", tone.blob)} />
+                      <GroupIllustration
+                        slug={group.slug}
+                        className="absolute inset-0 m-auto h-[72%] w-[80%] transition duration-700 ease-out group-hover:-translate-y-1 group-hover:scale-[1.03]"
+                      />
+                    </div>
                     <div className="flex flex-1 flex-col px-4 pt-6 pb-5">
                       <span className={cn("inline-flex w-fit items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-bold", tone.badge)}>
                         <span aria-hidden className="text-[1.15rem] leading-none">

@@ -77,8 +77,6 @@ export const kz = {
         text: "Балалардың дербестігін, білімге деген қызығушылығын және мектепке дайындық дағдыларын дамытуға бағытталған топ.",
       },
     } satisfies Record<GroupSlug, { level: string; text: string }>,
-    photoAlt: (name: string) => `«${name}» тобы`,
-    photoPlaceholder: (name: string) => `«${name}» тобының фотосы`,
   },
   daily: {
     eyebrow: "Күнделікті өмір",

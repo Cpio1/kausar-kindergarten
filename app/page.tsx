@@ -9,27 +9,23 @@ import { Groups } from "@/components/sections/Groups";
 import { Hero } from "@/components/sections/Hero";
 import { Nutrition } from "@/components/sections/Nutrition";
 import { Schedule } from "@/components/sections/Schedule";
-import { groups } from "@/lib/content";
 import {
   getAboutPhoto,
   getDailyPhotos,
   getFoodPhotos,
-  getGroupPhoto,
   getHeroPhoto,
   getShowcasePhotos,
 } from "@/lib/images";
 
 export default function HomePage() {
   // Фото читаются из public/images на сервере, а секции — клиентские (тексты переключаются по языку)
-  const groupPhotos = groups.map((group, i) => getGroupPhoto(group.slug, group.name, i + 1));
-
   return (
     <>
       <Header />
       <main>
         <Hero photo={getHeroPhoto()} />
         <About photo={getAboutPhoto()} />
-        <Groups photos={groupPhotos} />
+        <Groups />
         <DailyLife photos={getDailyPhotos()} />
         <Nutrition photos={getFoodPhotos().slice(0, 5)} />
         <Gallery photos={getShowcasePhotos()} />

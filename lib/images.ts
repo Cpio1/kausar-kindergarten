@@ -9,8 +9,6 @@ import { imageSize } from "image-size";
  *   public/images/main-page.jpg         — главное фото (можно и public/main-page.jpg; запасной вариант — hero.jpg,
  *                                         а если нет и его — первое фото галереи)
  *   public/images/main-page2.jpg        — фото для блока «Кәусар балабақшасы туралы» (необязательно)
- *   public/images/group-balausa.webp    — фото группы «Балауса» (также group-baldyrgan, group-sultan;
- *                                         запасной вариант — public/images/groups/balausa.jpg)
  *   public/images/food/*.jpg            — фото еды для блока «Тамақтану»
  *   public/images/daily/*.jpg           — фото для блока «Баланың әр күні» (если нет — из галереи)
  *   public/images/*.jpg                 — все остальные фото попадают в галерею
@@ -99,7 +97,7 @@ function findPhoto(dir: string, baseName: string, alt: string) {
 
 const baseNameOf = (name: string) => path.parse(name).name.toLowerCase();
 
-const SPECIAL_PHOTOS = new Set(["hero", "main-page", "main-page2", "group-balausa", "group-baldyrgan", "group-sultan"]);
+const SPECIAL_PHOTOS = new Set(["hero", "main-page", "main-page2"]);
 
 function fileHash(src: string) {
   try {
@@ -145,15 +143,6 @@ export function getHeroPhoto() {
 export function getAboutPhoto() {
   const alt = "«Кәусар» балабақшасы";
   return findPhoto("images", "main-page2", alt) ?? findPhoto("", "main-page2", alt);
-}
-
-export function getGroupPhoto(slug: string, name: string, fallbackIndex: number) {
-  return (
-    findPhoto("images", `group-${slug}`, `«${name}» тобы`) ??
-    findPhoto("images/groups", slug, `«${name}» тобы`) ??
-    getGalleryPhotos()[fallbackIndex] ??
-    null
-  );
 }
 
 export function getFoodPhotos() {

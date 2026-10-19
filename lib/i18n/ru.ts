@@ -75,8 +75,6 @@ export const ru: Dictionary = {
         text: "Группа для развития самостоятельности, интереса к знаниям и подготовки к дальнейшему обучению.",
       },
     },
-    photoAlt: (name) => `Группа «${name}»`,
-    photoPlaceholder: (name) => `Фото группы «${name}»`,
   },
   daily: {
     eyebrow: "Повседневная жизнь",
