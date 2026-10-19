@@ -70,9 +70,33 @@ html {
 
 html {
   scroll-behavior: smooth;
-  /* Отступ под фиксированный header при переходе по якорям */
-  scroll-padding-top: 5.5rem;
+  /*
+   * Мягкая привязка прокрутки к разделам: proximity доводит только когда край раздела уже рядом,
+   * длинные разделы при этом листаются свободно. Отступ сверху — высота фиксированного header,
+   * он же работает для переходов по пунктам меню.
+   */
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 4rem;
   -webkit-text-size-adjust: 100%;
+}
+
+@media (width >= 40rem) {
+  html {
+    scroll-padding-top: 4.5rem;
+  }
+}
+
+main > section {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+/* Небольшие разделы на планшете и компьютере смотрятся лучше по центру экрана */
+@media (width >= 40rem) {
+  #schedule,
+  #documents {
+    scroll-snap-align: center;
+  }
 }
 
 body {
