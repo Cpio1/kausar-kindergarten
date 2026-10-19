@@ -18,7 +18,7 @@ export function ButtonLink({ variant = "primary", className, children, ...props 
   return (
     <a
       className={cn(
-        "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.95rem] font-extrabold transition duration-300",
+        "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 py-2.5 [&>svg]:shrink-0 text-[0.9375rem] font-extrabold whitespace-nowrap transition duration-300 sm:px-6 sm:py-3 sm:text-[0.95rem] sm:whitespace-normal",
         variants[variant],
         className,
       )}

@@ -21,48 +21,50 @@ export function About({ photo }: { photo: Photo | null }) {
   const stats = t.about.stats.map((stat, i) => ({ ...stat, icon: aboutStatIcons[i] }));
 
   return (
-    <section id="about" className="relative overflow-hidden py-20 sm:py-28">
-      <Leaf className="absolute top-20 right-[6%] w-12 rotate-45 text-lime-200" />
-      <Star className="absolute bottom-24 left-[3%] w-6 text-lemon-300" />
+    <section id="about" className="relative overflow-hidden py-12 sm:py-28 lg:py-20">
+      <Leaf className="absolute top-10 right-[5%] w-8 rotate-45 text-lime-200 sm:top-20 sm:right-[6%] sm:w-12 lg:w-9" />
+      <Star className="absolute bottom-24 left-[3%] hidden w-6 text-lemon-300 sm:block" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-20 lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl gap-6 px-5 sm:gap-12 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8">
         <div>
           <SectionHeading eyebrow={t.about.eyebrow} title={t.about.title} align="left" />
-          <Reveal delay={100} className="mt-6 space-y-5 text-lg leading-relaxed text-pretty text-ink-soft">
+          <Reveal delay={100} className="mt-4 space-y-3 text-[0.95rem] leading-relaxed text-pretty text-ink-soft sm:mt-6 sm:space-y-5 sm:text-lg">
             <p>
               <strong className="font-extrabold text-ink">{t.about.introStrong}</strong> {t.about.introRest}
             </p>
-            <p className="rounded-3xl border-l-4 border-lime-400 bg-lime-50 px-6 py-5 text-ink">
+            <p className="rounded-2xl rounded-br-[2rem] border-l-4 border-lime-400 bg-lime-50 px-4 py-3.5 text-ink sm:rounded-3xl sm:px-6 sm:py-5">
               {t.about.goal}
             </p>
           </Reveal>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-5 sm:space-y-8">
           {photo && (
             <Reveal className="relative">
               <span
                 aria-hidden
-                className="absolute inset-0 translate-x-3 translate-y-3 rounded-[2.5rem] rounded-br-[6rem] bg-lemon-200"
+                className="absolute inset-0 translate-x-2 translate-y-2 rounded-[1.75rem] rounded-br-[4rem] bg-lemon-200 sm:translate-x-3 sm:translate-y-3 sm:rounded-[2.5rem] sm:rounded-br-[6rem]"
               />
               <PhotoFrame
                 photo={photo}
                 alt={t.about.photoAlt}
                 sizes="(min-width: 1024px) 560px, 92vw"
-                className="aspect-[16/10] rounded-[2.5rem] rounded-br-[6rem] shadow-soft ring-4 ring-white"
+                className="aspect-[16/10] rounded-[1.75rem] rounded-br-[4rem] shadow-soft ring-4 ring-white sm:rounded-[2.5rem] sm:rounded-br-[6rem]"
               />
             </Reveal>
           )}
 
-          <ul className="grid grid-cols-2 gap-4 sm:gap-5">
+          <ul className="grid grid-cols-2 gap-2.5 sm:gap-5">
             {stats.map(({ icon: Icon, value, label }, i) => (
               <Reveal as="li" key={value} delay={i * 100}>
-                <div className="group h-full rounded-[2rem] bg-white p-5 shadow-soft ring-1 ring-lime-100/70 transition duration-300 hover:-translate-y-1 hover:shadow-lift sm:p-7">
-                  <span className={`grid size-12 place-items-center rounded-2xl ${statTones[i]} transition group-hover:rotate-6`}>
-                    <Icon className="size-6" />
+                <div className="group flex h-full items-center gap-2.5 max-[374px]:flex-col max-[374px]:items-start max-[374px]:gap-2 rounded-[1.25rem] bg-white p-3 shadow-soft ring-1 ring-lime-100/70 transition duration-300 hover:-translate-y-1 hover:shadow-lift sm:block sm:rounded-[2rem] sm:p-7 lg:rounded-[1.75rem] lg:p-6">
+                  <span className={`grid size-9 shrink-0 place-items-center rounded-xl sm:size-12 sm:rounded-2xl ${statTones[i]} transition group-hover:rotate-6`}>
+                    <Icon className="size-[1.1rem] sm:size-6" />
                   </span>
-                  <p className="mt-5 font-display text-2xl font-bold text-ink sm:text-3xl">{value}</p>
-                  <p className="mt-1 text-sm font-bold text-ink-soft sm:text-base">{label}</p>
+                  <div className="min-w-0">
+                    <p className="font-display text-[1.15rem] font-bold text-ink sm:mt-5 sm:text-3xl">{value}</p>
+                    <p className="text-xs font-bold text-ink-soft sm:mt-1 sm:text-base">{label}</p>
+                  </div>
                 </div>
               </Reveal>
             ))}

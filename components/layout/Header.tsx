@@ -35,14 +35,14 @@ export function Header() {
   const close = () => setOpen(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
+    <header className="fixed inset-x-0 top-0 z-50 px-2.5 pt-2.5 sm:px-5 sm:pt-3">
       <div
         className={cn(
-          "mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full px-3 py-2 transition-all duration-500 sm:px-4",
+          "mx-auto flex max-w-7xl items-center justify-between gap-2 rounded-full py-1.5 pr-2 pl-2.5 transition-all duration-500 sm:gap-4 sm:px-4 sm:py-2",
           scrolled || open ? "bg-milk/90 shadow-soft ring-1 ring-lime-100 backdrop-blur-md" : "bg-transparent",
         )}
       >
-        <a href="#home" onClick={close} aria-label={t.header.homeLink} className="rounded-2xl pl-1">
+        <a href="#home" onClick={close} aria-label={t.header.homeLink} className="min-w-0 rounded-2xl sm:pl-1">
           <Logo />
         </a>
 
@@ -61,11 +61,11 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <LanguageSwitcher />
           <a
             href="#contacts"
-            className="hidden rounded-full bg-lime-400 px-5 py-3 text-sm font-extrabold text-ink shadow-[0_10px_24px_-12px_rgb(111_150_42/0.8)] transition hover:-translate-y-0.5 hover:bg-lime-300 sm:inline-flex"
+            className="hidden rounded-full bg-lime-400 px-5 py-3 lg:py-2.5 text-sm font-extrabold text-ink shadow-[0_10px_24px_-12px_rgb(111_150_42/0.8)] transition hover:-translate-y-0.5 hover:bg-lime-300 sm:inline-flex"
           >
             {t.header.contact}
           </a>
@@ -75,7 +75,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? t.header.closeMenu : t.header.openMenu}
-            className="grid size-11 place-items-center rounded-full bg-white text-ink shadow-soft ring-1 ring-lime-100 xl:hidden"
+            className="grid size-10 place-items-center rounded-full bg-white text-ink shadow-soft ring-1 ring-lime-100 sm:size-11 xl:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -86,38 +86,38 @@ export function Header() {
       <div
         id="mobile-menu"
         className={cn(
-          "mx-auto mt-2 max-w-7xl origin-top overflow-hidden rounded-[2rem] bg-milk/95 shadow-lift ring-1 ring-lime-100 backdrop-blur-md transition-all duration-300 xl:hidden",
+          "mx-auto mt-2 max-w-7xl origin-top overflow-hidden rounded-[1.75rem] bg-milk/95 sm:rounded-[2rem] shadow-lift ring-1 ring-lime-100 backdrop-blur-md transition-all duration-300 xl:hidden",
           open ? "visible scale-100 opacity-100" : "invisible scale-95 opacity-0",
         )}
       >
-        <nav aria-label={t.header.mobileNav} className="p-4">
-          <ul className="grid gap-1">
+        <nav aria-label={t.header.mobileNav} className="p-2.5 sm:p-4">
+          <ul className="grid gap-0.5 sm:gap-1">
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
                   onClick={close}
                   tabIndex={open ? 0 : -1}
-                  className="block rounded-2xl px-4 py-3 text-lg font-bold text-ink transition hover:bg-lime-100"
+                  className="block rounded-2xl px-4 py-2.5 text-[1.05rem] font-bold text-ink transition hover:bg-lime-100 sm:py-3 sm:text-lg"
                 >
                   {t.nav[item.key]}
                 </a>
               </li>
             ))}
           </ul>
-          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+          <div className="mt-2 grid gap-2 sm:mt-3 sm:grid-cols-2">
             <a
               href="#contacts"
               onClick={close}
               tabIndex={open ? 0 : -1}
-              className="rounded-full bg-lime-400 px-5 py-3.5 text-center font-extrabold text-ink"
+              className="rounded-full bg-lime-400 px-5 py-3 text-center text-[0.95rem] font-extrabold text-ink sm:py-3.5 sm:text-base"
             >
               {t.header.contact}
             </a>
             <a
               href={phoneHref}
               tabIndex={open ? 0 : -1}
-              className="flex items-center justify-center gap-2 rounded-full bg-lemon-200 px-5 py-3.5 font-extrabold text-ink"
+              className="flex items-center justify-center gap-2 rounded-full bg-lemon-200 px-5 py-3 text-[0.95rem] font-extrabold text-ink sm:py-3.5 sm:text-base"
             >
               <Phone className="size-4" />
               {site.phone}

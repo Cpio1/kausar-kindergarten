@@ -9,8 +9,9 @@ import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { Reveal } from "@/components/ui/Reveal";
 
-/** Сколько фото видно до нажатия «Тағы көру» */
+/** Сколько фото видно до нажатия «Тағы көру»: на компьютере и планшете — 5, на телефоне — 4 */
 const INITIAL_COUNT = 5;
+const INITIAL_COUNT_MOBILE = 4;
 
 type Tile = { span: string; shape: string; size: "big" | "wide" | "small" };
 
@@ -21,12 +22,13 @@ const smallShapes = [
   "rounded-[1.5rem] rounded-t-[3.5rem] sm:rounded-[2rem] sm:rounded-t-[6rem]",
   "rounded-[1.5rem] rounded-tr-[3rem] sm:rounded-[2rem] sm:rounded-tr-[5rem]",
 ];
-const wideShape = "rounded-[1.75rem] rounded-bl-[4rem] sm:rounded-[2.5rem] sm:rounded-bl-[6rem]";
+const wideShape = "rounded-[1.5rem] rounded-bl-[3rem] sm:rounded-[2.5rem] sm:rounded-bl-[6rem]";
 
 /**
- * Фото раскладываются блоками по 5: крупная плитка 2×2 + четыре обычные. Такой блок ровно заполняет
- * сетку и на телефоне (2 колонки), и на компьютере (4 колонки); в нечётных блоках крупное фото справа.
+ * С sm фото раскладываются блоками по 5: крупная плитка 2×2 + четыре обычные. Такой блок ровно заполняет
+ * сетку и на планшете (2 колонки), и на компьютере (4 колонки); в нечётных блоках крупное фото справа.
  * Неполный последний блок собирается из широких плиток, чтобы в сетке не оставалось дыр.
+ * На телефоне все плитки одного размера в 2 колонки — ряды чередуют высоту (см. gridClass).
  */
 function tileLayout(index: number, total: number): Tile {
   const block = Math.floor(index / 5);
@@ -34,12 +36,12 @@ function tileLayout(index: number, total: number): Tile {
   const blockSize = Math.min(5, total - block * 5);
   const mirrored = block % 2 === 1;
   const small: Tile = { span: "", shape: smallShapes[(index + block) % smallShapes.length], size: "small" };
-  const wide: Tile = { span: "col-span-2", shape: wideShape, size: "wide" };
+  const wide: Tile = { span: "sm:col-span-2", shape: wideShape, size: "wide" };
   const big: Tile = {
-    span: cn("col-span-2 row-span-2", mirrored && "lg:col-start-3"),
+    span: cn("sm:col-span-2 sm:row-span-2", mirrored && "lg:col-start-3"),
     shape: mirrored
-      ? "rounded-[2rem] rounded-tr-[5rem] sm:rounded-[2.5rem] sm:rounded-tr-[8rem]"
-      : "rounded-[2rem] rounded-tl-[5rem] sm:rounded-[2.5rem] sm:rounded-tl-[8rem]",
+      ? "rounded-[1.5rem] rounded-tr-[3rem] sm:rounded-[2.5rem] sm:rounded-tr-[8rem]"
+      : "rounded-[1.5rem] rounded-tl-[3rem] sm:rounded-[2.5rem] sm:rounded-tl-[8rem]",
     size: "big",
   };
 
@@ -49,12 +51,12 @@ function tileLayout(index: number, total: number): Tile {
   }
   if (blockSize === 3) return pos === 0 ? wide : small;
   if (blockSize === 2) return wide;
-  return { ...wide, span: "col-span-2 lg:col-start-2" };
+  return { ...wide, span: "sm:col-span-2 lg:col-start-2" };
 }
 
 const tileSizes = {
-  big: "(min-width: 1024px) 600px, 100vw",
-  wide: "(min-width: 1024px) 600px, 100vw",
+  big: "(min-width: 1024px) 600px, (min-width: 640px) 100vw, 50vw",
+  wide: "(min-width: 1024px) 600px, (min-width: 640px) 100vw, 50vw",
   small: "(min-width: 1024px) 300px, 50vw",
 };
 
@@ -88,7 +90,8 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
   }, [active, close, step]);
 
   const gridClass =
-    "grid grid-flow-row-dense auto-rows-[8.5rem] grid-cols-2 gap-3 sm:auto-rows-[13rem] sm:gap-4 lg:auto-rows-[14.5rem] lg:grid-cols-4 lg:gap-5";
+    // На телефоне ряды чередуют высоту: почти квадрат и чуть ниже — без вертикальных плиток, чтобы не резать лица
+    "grid grid-flow-row-dense auto-rows-[9.75rem_8.25rem] grid-cols-2 gap-2.5 sm:auto-rows-[13rem] sm:gap-4 lg:auto-rows-[12.5rem] lg:grid-cols-4 lg:gap-5";
 
   if (!photos.length) {
     return (
@@ -126,11 +129,22 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
         {visible.map((photo, i) => {
           const tile = tileLayout(i, visible.length);
           return (
-            <Reveal as="li" key={photo.src} delay={(i % 5) * 70} className={cn("relative", tile.span)}>
+            <Reveal
+              as="li"
+              key={photo.src}
+              delay={(i % 5) * 70}
+              className={cn(
+                "relative",
+                tile.span,
+                // Телефон: до раскрытия видно 4 фото; нечётное последнее фото растягиваем на обе колонки
+                !expanded && i >= INITIAL_COUNT_MOBILE && "max-sm:hidden",
+                expanded && i === visible.length - 1 && visible.length % 2 === 1 && "max-sm:col-span-2 max-sm:row-span-2",
+              )}
+            >
               {tile.size === "big" && (
                 <span
                   aria-hidden
-                  className={cn("absolute inset-0 translate-x-2 translate-y-2 bg-lemon-200 sm:translate-x-3 sm:translate-y-3", tile.shape)}
+                  className={cn("absolute inset-0 hidden translate-x-3 translate-y-3 bg-lemon-200 sm:block", tile.shape)}
                 />
               )}
               <button
@@ -160,14 +174,14 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
         })}
       </ul>
 
-      {photos.length > INITIAL_COUNT && (
-        <div className="mt-10 flex justify-center">
+      {photos.length > INITIAL_COUNT_MOBILE && (
+        <div className={cn("mt-6 flex justify-center sm:mt-10", photos.length <= INITIAL_COUNT && "sm:hidden")}>
           <button
             type="button"
             onClick={toggle}
             aria-expanded={expanded}
             aria-controls="gallery-grid"
-            className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-[0.95rem] font-extrabold text-ink shadow-soft ring-1 ring-lime-200 transition duration-300 hover:-translate-y-0.5 hover:ring-lime-300 sm:w-auto"
+            className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-2.5 text-[0.9375rem] font-extrabold sm:py-3 sm:text-[0.95rem] text-ink shadow-soft ring-1 ring-lime-200 transition duration-300 hover:-translate-y-0.5 hover:ring-lime-300 sm:w-auto"
           >
             {expanded ? t.gallery.showLess : t.gallery.showMore}
             {expanded ? <ChevronUp className="size-4 text-lime-600" /> : <ChevronDown className="size-4 text-lime-600" />}

@@ -14,36 +14,36 @@ export function DailyLife({ photos }: { photos: Photo[] }) {
   const activities = t.daily.activities.map((title, i) => ({ title, icon: dailyActivityIcons[i] }));
 
   return (
-    <section className="px-3 pt-10 sm:px-5 sm:pt-14">
-      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-linear-to-br from-lime-200 via-lime-100 to-lemon-100 px-5 py-14 sm:rounded-[3.5rem] sm:px-10 sm:py-20 lg:px-16">
-        <Sun className="absolute -top-12 -right-12 w-44 text-lemon-300/70" />
-        <Cloud className="absolute bottom-8 left-[45%] hidden w-32 text-white/60 lg:block" />
-        <Leaf className="absolute top-10 left-6 w-10 rotate-12 text-lime-400/50" />
+    <section className="px-3 pt-6 sm:px-5 sm:pt-14">
+      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] rounded-tr-[3.5rem] bg-linear-to-br from-lime-200 via-lime-100 to-lemon-100 px-5 py-9 sm:rounded-[3.5rem] sm:px-10 sm:py-20 lg:px-14 lg:py-16">
+        <Sun className="absolute -top-8 -right-8 w-24 text-lemon-300/70 sm:-top-12 sm:-right-12 sm:w-44 lg:w-32" />
+        <Cloud className="absolute bottom-8 left-[45%] hidden w-24 text-white/60 lg:block" />
+        <Leaf className="absolute top-10 left-6 hidden w-10 rotate-12 text-lime-400/50 sm:block" />
 
-        <div className="relative grid items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+        <div className="relative grid items-center gap-6 sm:gap-12 lg:grid-cols-[1fr_1fr] lg:gap-14">
           <div>
             <Reveal>
-              <span className="inline-flex rounded-full bg-white/70 px-4 py-1.5 text-sm font-bold text-lime-700">
+              <span className="inline-flex rounded-full bg-white/70 px-3 py-1 text-[0.8125rem] font-bold text-lime-700 sm:px-4 sm:py-1.5 sm:text-sm">
                 {t.daily.eyebrow}
               </span>
-              <h2 className="mt-4 font-display text-[1.7rem] leading-tight font-bold text-balance text-ink sm:text-4xl lg:text-[2.6rem]">
+              <h2 className="mt-3 font-display text-[1.8rem] leading-tight font-bold text-balance text-ink sm:mt-4 sm:text-4xl lg:text-[2.6rem]">
                 {t.daily.title}
               </h2>
             </Reveal>
-            <Reveal delay={100} className="mt-6 space-y-4 text-lg leading-relaxed text-pretty text-ink/80">
+            <Reveal delay={100} className="mt-3 space-y-2 text-[0.95rem] leading-relaxed text-pretty text-ink/80 sm:mt-6 sm:space-y-4 sm:text-lg">
               {t.daily.paragraphs.map((text) => (
                 <p key={text}>{text}</p>
               ))}
             </Reveal>
 
-            <ul className="mt-8 grid grid-cols-2 gap-3">
+            <ul className="mt-5 grid grid-cols-2 gap-2 sm:mt-8 sm:gap-3">
               {activities.map(({ icon: Icon, title }, i) => (
                 <Reveal as="li" key={title} delay={150 + i * 80}>
-                  <div className="flex h-full flex-col items-start gap-2.5 rounded-3xl bg-white/85 p-3 pr-4 sm:flex-row sm:items-center sm:gap-3 shadow-soft backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:bg-white">
-                    <span className={`grid size-11 shrink-0 place-items-center rounded-2xl text-lime-700 ${activityTones[i]} ring-1 ring-lime-200`}>
-                      <Icon className="size-5" />
+                  <div className="flex h-full items-center gap-2 max-[374px]:flex-col max-[374px]:items-start rounded-2xl bg-white/85 p-2 pr-2.5 shadow-soft backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:bg-white sm:gap-3 sm:rounded-3xl sm:p-3 sm:pr-4">
+                    <span className={`grid size-8 shrink-0 place-items-center rounded-xl text-lime-700 sm:size-11 sm:rounded-2xl ${activityTones[i]} ring-1 ring-lime-200`}>
+                      <Icon className="size-4 sm:size-5" />
                     </span>
-                    <span className="text-sm leading-snug font-extrabold text-ink sm:text-[0.95rem]">{title}</span>
+                    <span className="text-[0.8125rem] leading-snug font-extrabold text-ink sm:text-[0.95rem]">{title}</span>
                   </div>
                 </Reveal>
               ))}
@@ -51,14 +51,14 @@ export function DailyLife({ photos }: { photos: Photo[] }) {
           </div>
 
           {/* Коллаж из трёх фото */}
-          <Reveal delay={150} className="grid grid-cols-2 gap-3 sm:gap-4">
+          <Reveal delay={150} className="grid grid-cols-2 gap-2.5 sm:gap-4">
             <PhotoFrame
               photo={photos[0] ?? null}
               tone="lemon"
               sizes="(min-width: 1024px) 300px, 45vw"
               alt={t.daily.photoAlt}
               placeholderLabel={t.daily.photoPlaceholders[0]}
-              className="row-span-2 min-h-72 rounded-[2rem] ring-4 ring-white/70 sm:min-h-[26rem]"
+              className="row-span-2 min-h-52 rounded-[1.5rem] rounded-tl-[3rem] ring-4 ring-white/70 sm:min-h-[26rem] sm:rounded-[2rem] lg:min-h-[21rem]"
             />
             <PhotoFrame
               photo={photos[1] ?? null}
@@ -66,7 +66,7 @@ export function DailyLife({ photos }: { photos: Photo[] }) {
               sizes="(min-width: 1024px) 300px, 45vw"
               alt={t.daily.photoAlt}
               placeholderLabel={t.daily.photoPlaceholders[1]}
-              className="aspect-square rounded-[2rem] rounded-tr-[4rem] ring-4 ring-white/70"
+              className="aspect-[5/4] rounded-[1.5rem] rounded-tr-[2.75rem] ring-4 ring-white/70 sm:aspect-square sm:rounded-[2rem] sm:rounded-tr-[4rem]"
             />
             <PhotoFrame
               photo={photos[2] ?? null}
@@ -74,7 +74,7 @@ export function DailyLife({ photos }: { photos: Photo[] }) {
               sizes="(min-width: 1024px) 300px, 45vw"
               alt={t.daily.photoAlt}
               placeholderLabel={t.daily.photoPlaceholders[2]}
-              className="aspect-square rounded-[2rem] rounded-br-[4rem] ring-4 ring-white/70"
+              className="aspect-[5/4] rounded-[1.5rem] rounded-br-[2.75rem] ring-4 ring-white/70 sm:aspect-square sm:rounded-[2rem] sm:rounded-br-[4rem]"
             />
           </Reveal>
         </div>

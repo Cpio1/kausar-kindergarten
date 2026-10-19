@@ -34,19 +34,19 @@ export function Groups() {
 
   return (
     <section id="groups" className="relative">
-      <Wave className="h-10 text-cream sm:h-16" />
-      <div className="relative overflow-hidden bg-cream py-16 sm:py-20">
-        <Sun className="absolute top-6 left-[4%] w-16 text-lemon-200" />
-        <Leaf className="absolute right-[5%] bottom-10 w-12 -rotate-45 text-lime-200" />
+      <Wave className="h-7 text-cream sm:h-16" />
+      <div className="relative overflow-hidden bg-cream py-8 sm:py-20 lg:py-16">
+        <Sun className="absolute top-2 left-[3%] w-10 text-lemon-200 sm:top-6 sm:left-[4%] sm:w-16 lg:w-12" />
+        <Leaf className="absolute right-[5%] bottom-10 hidden w-12 -rotate-45 text-lime-200 sm:block lg:w-9" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow={t.groups.eyebrow}
             title={t.groups.title}
             subtitle={t.groups.subtitle}
           />
 
-          <ul className="mt-10 grid gap-3.5 sm:mt-14 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+          <ul className="mt-6 grid gap-3 sm:mt-14 lg:mt-10 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {groups.map((group, i) => {
               const tone = tones[group.tone];
               const copy = t.groups.items[group.slug];
@@ -56,7 +56,7 @@ export function Groups() {
                     className={cn(
                       // До sm — компактная горизонтальная карточка: фигурка слева, текст справа
                       "group flex h-full items-center gap-4 rounded-[1.75rem] rounded-br-[3rem] bg-white p-4 shadow-soft ring-1 ring-transparent transition duration-300 hover:-translate-y-1.5 hover:shadow-lift",
-                      "sm:flex-col sm:items-stretch sm:gap-0 sm:rounded-[2.25rem] sm:p-3",
+                      "sm:flex-col sm:items-stretch sm:gap-0 sm:rounded-[2.25rem] sm:p-3 lg:rounded-[2rem]",
                       tone.card,
                     )}
                   >
@@ -64,9 +64,9 @@ export function Groups() {
                     <div
                       className={cn(
                         "relative aspect-square w-[32%] shrink-0 overflow-hidden rounded-[1.5rem] rounded-tl-[2.5rem] bg-linear-to-br",
-                        "sm:aspect-[4/3] sm:w-full sm:rounded-[1.75rem]",
+                        "sm:aspect-[4/3] sm:w-full sm:rounded-[1.75rem] lg:aspect-[16/10] lg:rounded-[1.5rem]",
                         tone.art,
-                        i === 2 && "md:aspect-[16/7] lg:aspect-[4/3]",
+                        i === 2 && "md:aspect-[16/7] lg:aspect-[16/10]",
                       )}
                     >
                       <Blob className={cn("absolute inset-0 m-auto h-[82%] w-[82%] rotate-12 sm:h-[88%] sm:w-[78%]", tone.blob)} />
@@ -75,7 +75,7 @@ export function Groups() {
                         className="absolute inset-0 m-auto h-[70%] w-[94%] transition duration-700 sm:h-[61%] sm:w-[68%] lg:h-[63%] lg:w-[70%] ease-out group-hover:-translate-y-1 group-hover:scale-[1.03]"
                       />
                     </div>
-                    <div className="flex min-w-0 flex-1 flex-col sm:px-4 sm:pt-6 sm:pb-5">
+                    <div className="flex min-w-0 flex-1 flex-col sm:px-4 sm:pt-6 sm:pb-5 lg:pt-5 lg:pb-4">
                       <span
                         className={cn(
                           "inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.8125rem] font-bold sm:gap-2 sm:px-3.5 sm:py-1.5 sm:text-sm",
@@ -101,7 +101,7 @@ export function Groups() {
           </ul>
         </div>
       </div>
-      <Wave className="h-10 rotate-180 text-cream sm:h-16" />
+      <Wave className="h-7 rotate-180 text-cream sm:h-16" />
     </section>
   );
 }

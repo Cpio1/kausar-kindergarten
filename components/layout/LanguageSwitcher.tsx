@@ -11,7 +11,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     <div
       role="group"
       aria-label={t.header.language}
-      className={cn("flex items-center rounded-full bg-white p-1 shadow-soft ring-1 ring-lime-100", className)}
+      className={cn("flex items-center rounded-full bg-white p-0.5 shadow-soft ring-1 ring-lime-100 sm:p-1", className)}
     >
       {languages.map(({ code, label }) => (
         <button
@@ -21,7 +21,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
           aria-pressed={lang === code}
           lang={code === "kz" ? "kk" : "ru"}
           className={cn(
-            "rounded-full px-2.5 py-2 text-xs font-extrabold tracking-wide transition sm:px-3.5",
+            "rounded-full px-2.5 py-1.5 text-xs font-extrabold tracking-wide transition sm:px-3.5 sm:py-2",
             lang === code ? "bg-lime-500 text-white shadow-sm" : "text-ink-soft hover:bg-lime-50 hover:text-ink",
           )}
         >

@@ -10,17 +10,17 @@ export function Gallery({ photos }: { photos: Photo[] }) {
   const { t } = useI18n();
 
   return (
-    <section id="gallery" className="relative overflow-hidden bg-cream py-20 sm:py-28">
-      <Cloud className="absolute top-12 right-[6%] w-28 text-white" />
-      <Star className="absolute top-32 left-[5%] w-7 animate-float text-lemon-300" />
+    <section id="gallery" className="relative overflow-hidden bg-cream py-12 sm:py-28 lg:py-20">
+      <Cloud className="absolute top-12 right-[6%] hidden w-28 text-white sm:block lg:w-20" />
+      <Star className="absolute top-32 left-[5%] hidden w-7 animate-float text-lemon-300 sm:block" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow={t.gallery.eyebrow}
           title={t.gallery.title}
           subtitle={t.gallery.subtitle}
         />
-        <div className="mt-14">
+        <div className="mt-6 sm:mt-14 lg:mt-10">
           <GalleryGrid photos={photos} />
         </div>
       </div>
