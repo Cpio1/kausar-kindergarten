@@ -46,7 +46,7 @@ export function Groups() {
             subtitle={t.groups.subtitle}
           />
 
-          <ul className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+          <ul className="mt-10 grid gap-3.5 sm:mt-14 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {groups.map((group, i) => {
               const tone = tones[group.tone];
               const copy = t.groups.items[group.slug];
@@ -54,33 +54,45 @@ export function Groups() {
                 <Reveal as="li" key={group.slug} delay={i * 120} className={cn(i === 2 && "md:col-span-2 lg:col-span-1")}>
                   <article
                     className={cn(
-                      "group flex h-full flex-col rounded-[2.25rem] bg-white p-3 shadow-soft ring-1 ring-transparent transition duration-300 hover:-translate-y-1.5 hover:shadow-lift",
+                      // До sm — компактная горизонтальная карточка: фигурка слева, текст справа
+                      "group flex h-full items-center gap-4 rounded-[1.75rem] rounded-br-[3rem] bg-white p-4 shadow-soft ring-1 ring-transparent transition duration-300 hover:-translate-y-1.5 hover:shadow-lift",
+                      "sm:flex-col sm:items-stretch sm:gap-0 sm:rounded-[2.25rem] sm:p-3",
                       tone.card,
                     )}
                   >
-                    {/* Декоративная композиция вместо фото — та же высота и скругление */}
+                    {/* Декоративная композиция: на телефоне — квадрат слева, с sm — блок во всю ширину карточки */}
                     <div
                       className={cn(
-                        "relative overflow-hidden rounded-[1.75rem] bg-linear-to-br",
+                        "relative aspect-square w-[32%] shrink-0 overflow-hidden rounded-[1.5rem] rounded-tl-[2.5rem] bg-linear-to-br",
+                        "sm:aspect-[4/3] sm:w-full sm:rounded-[1.75rem]",
                         tone.art,
-                        i === 2 ? "aspect-[4/3] md:aspect-[16/7] lg:aspect-[4/3]" : "aspect-[4/3]",
+                        i === 2 && "md:aspect-[16/7] lg:aspect-[4/3]",
                       )}
                     >
-                      <Blob className={cn("absolute inset-0 m-auto h-[70%] w-[62%] rotate-12 sm:h-[88%] sm:w-[78%]", tone.blob)} />
+                      <Blob className={cn("absolute inset-0 m-auto h-[82%] w-[82%] rotate-12 sm:h-[88%] sm:w-[78%]", tone.blob)} />
                       <GroupIllustration
                         slug={group.slug}
-                        className="absolute inset-0 m-auto h-[44%] w-[50%] transition duration-700 sm:h-[61%] sm:w-[68%] lg:h-[63%] lg:w-[70%] ease-out group-hover:-translate-y-1 group-hover:scale-[1.03]"
+                        className="absolute inset-0 m-auto h-[70%] w-[94%] transition duration-700 sm:h-[61%] sm:w-[68%] lg:h-[63%] lg:w-[70%] ease-out group-hover:-translate-y-1 group-hover:scale-[1.03]"
                       />
                     </div>
-                    <div className="flex flex-1 flex-col px-4 pt-6 pb-5">
-                      <span className={cn("inline-flex w-fit items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-bold", tone.badge)}>
-                        <span aria-hidden className="text-[1.15rem] leading-none">
+                    <div className="flex min-w-0 flex-1 flex-col sm:px-4 sm:pt-6 sm:pb-5">
+                      <span
+                        className={cn(
+                          "inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.8125rem] font-bold sm:gap-2 sm:px-3.5 sm:py-1.5 sm:text-sm",
+                          tone.badge,
+                        )}
+                      >
+                        <span aria-hidden className="text-[1rem] leading-none sm:text-[1.15rem]">
                           {group.emoji}
                         </span>
                         {copy.level}
                       </span>
-                      <h3 className="mt-4 font-display text-2xl font-bold text-ink">{group.name}</h3>
-                      <p className="mt-3 leading-relaxed text-pretty text-ink-soft">{copy.text}</p>
+                      <h3 className="mt-2 font-display text-[1.4rem] leading-tight font-bold text-ink sm:mt-4 sm:text-2xl">
+                        {group.name}
+                      </h3>
+                      <p className="mt-1.5 text-[0.9rem] leading-normal text-pretty text-ink-soft sm:mt-3 sm:text-base sm:leading-relaxed">
+                        {copy.text}
+                      </p>
                     </div>
                   </article>
                 </Reveal>
