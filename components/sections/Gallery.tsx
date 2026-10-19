@@ -1,10 +1,10 @@
-import { getGalleryPhotos } from "@/lib/images";
+import { getShowcasePhotos } from "@/lib/images";
 import { Cloud, Star } from "@/components/ui/Decor";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GalleryGrid } from "./GalleryGrid";
 
 export function Gallery() {
-  const photos = getGalleryPhotos();
+  const photos = getShowcasePhotos();
 
   return (
     <section id="gallery" className="relative overflow-hidden bg-cream py-20 sm:py-28">

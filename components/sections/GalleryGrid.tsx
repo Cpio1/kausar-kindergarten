@@ -1,29 +1,68 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, X } from "lucide-react";
 import type { Photo } from "@/lib/images";
 import { cn } from "@/lib/cn";
 import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { Reveal } from "@/components/ui/Reveal";
 
+/** Сколько фото видно до нажатия «Тағы көру» */
+const INITIAL_COUNT = 5;
+
+type Tile = { span: string; shape: string; size: "big" | "wide" | "small" };
+
+/** Мягкие «органические» формы для обычных плиток — чередуются по кругу */
+const smallShapes = [
+  "rounded-[1.5rem] rounded-br-[3rem] sm:rounded-[2rem] sm:rounded-br-[5rem]",
+  "rounded-[2rem_1rem] sm:rounded-[3rem_1.25rem]",
+  "rounded-[1.5rem] rounded-t-[3.5rem] sm:rounded-[2rem] sm:rounded-t-[6rem]",
+  "rounded-[1.5rem] rounded-tr-[3rem] sm:rounded-[2rem] sm:rounded-tr-[5rem]",
+];
+const wideShape = "rounded-[1.75rem] rounded-bl-[4rem] sm:rounded-[2.5rem] sm:rounded-bl-[6rem]";
+
 /**
- * Размер плитки подбирается по ориентации фото, чтобы обрезка была минимальной:
- * горизонтальные — шире, вертикальные — выше, а каждое 5-е фото — крупная плитка 2×2.
+ * Фото раскладываются блоками по 5: крупная плитка 2×2 + четыре обычные. Такой блок ровно заполняет
+ * сетку и на телефоне (2 колонки), и на компьютере (4 колонки); в нечётных блоках крупное фото справа.
+ * Неполный последний блок собирается из широких плиток, чтобы в сетке не оставалось дыр.
  */
-function tileSpan(photo: Photo, index: number) {
-  const ratio = photo.width / photo.height;
-  if (index % 5 === 0) return "col-span-2 row-span-2";
-  if (ratio > 1.25) return "col-span-2";
-  if (ratio < 0.85) return "row-span-2";
-  return "";
+function tileLayout(index: number, total: number): Tile {
+  const block = Math.floor(index / 5);
+  const pos = index % 5;
+  const blockSize = Math.min(5, total - block * 5);
+  const mirrored = block % 2 === 1;
+  const small: Tile = { span: "", shape: smallShapes[(index + block) % smallShapes.length], size: "small" };
+  const wide: Tile = { span: "col-span-2", shape: wideShape, size: "wide" };
+  const big: Tile = {
+    span: cn("col-span-2 row-span-2", mirrored && "lg:col-start-3"),
+    shape: mirrored
+      ? "rounded-[2rem] rounded-tr-[5rem] sm:rounded-[2.5rem] sm:rounded-tr-[8rem]"
+      : "rounded-[2rem] rounded-tl-[5rem] sm:rounded-[2.5rem] sm:rounded-tl-[8rem]",
+    size: "big",
+  };
+
+  if (blockSize === 5 || blockSize === 4) {
+    if (pos === 0) return big;
+    return blockSize === 4 && pos === 3 ? wide : small;
+  }
+  if (blockSize === 3) return pos === 0 ? wide : small;
+  if (blockSize === 2) return wide;
+  return { ...wide, span: "col-span-2 lg:col-start-2" };
 }
+
+const tileSizes = {
+  big: "(min-width: 1024px) 600px, 100vw",
+  wide: "(min-width: 1024px) 600px, 100vw",
+  small: "(min-width: 1024px) 300px, 50vw",
+};
 
 const placeholderSpans = ["col-span-2 row-span-2", "row-span-2", "", "", "col-span-2", "row-span-2", "", ""];
 
 export function GalleryGrid({ photos }: { photos: Photo[] }) {
   const [active, setActive] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  const gridRef = useRef<HTMLUListElement>(null);
 
   const close = useCallback(() => setActive(null), []);
   const step = useCallback(
@@ -47,7 +86,7 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
   }, [active, close, step]);
 
   const gridClass =
-    "grid grid-flow-row-dense auto-rows-[9.5rem] grid-cols-2 gap-3 sm:auto-rows-[12rem] sm:gap-4 md:grid-cols-3 lg:auto-rows-[13.5rem] lg:grid-cols-4";
+    "grid grid-flow-row-dense auto-rows-[8.5rem] grid-cols-2 gap-3 sm:auto-rows-[13rem] sm:gap-4 lg:auto-rows-[14.5rem] lg:grid-cols-4 lg:gap-5";
 
   if (!photos.length) {
     return (
@@ -70,31 +109,68 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
   }
 
   const current = active === null ? null : photos[active];
+  const visible = expanded ? photos : photos.slice(0, INITIAL_COUNT);
+
+  const toggle = () => {
+    // При сворачивании возвращаемся к началу галереи, чтобы не остаться ниже неё
+    if (expanded) gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setExpanded(!expanded);
+  };
 
   return (
     <>
-      <ul className={gridClass}>
-        {photos.map((photo, i) => (
-          <Reveal as="li" key={photo.src} delay={(i % 4) * 70} className={tileSpan(photo, i)}>
-            <button
-              type="button"
-              onClick={() => setActive(i)}
-              aria-label={`Фотоны үлкейту: ${photo.alt}`}
-              className="group relative block size-full overflow-hidden rounded-[1.75rem] bg-lime-50 shadow-soft"
-            >
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                fill
-                sizes="(min-width: 1024px) 50vw, (min-width: 768px) 66vw, 100vw"
-                className="object-cover transition duration-700 ease-out group-hover:scale-[1.06]"
-                style={{ objectPosition: photo.position }}
-              />
-              <span className="absolute inset-0 bg-linear-to-t from-ink/25 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
-            </button>
-          </Reveal>
-        ))}
+      <ul ref={gridRef} id="gallery-grid" className={cn(gridClass, "scroll-mt-28")}>
+        {visible.map((photo, i) => {
+          const tile = tileLayout(i, visible.length);
+          return (
+            <Reveal as="li" key={photo.src} delay={(i % 5) * 70} className={cn("relative", tile.span)}>
+              {tile.size === "big" && (
+                <span
+                  aria-hidden
+                  className={cn("absolute inset-0 translate-x-2 translate-y-2 bg-lemon-200 sm:translate-x-3 sm:translate-y-3", tile.shape)}
+                />
+              )}
+              <button
+                type="button"
+                onClick={() => setActive(i)}
+                aria-label={`Фотоны үлкейту: ${photo.alt}`}
+                className={cn(
+                  "group relative block size-full overflow-hidden bg-lime-50 shadow-soft ring-4 ring-white transition duration-300 hover:shadow-lift",
+                  tile.shape,
+                )}
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes={tileSizes[tile.size]}
+                  className={cn(
+                    "transition duration-700 ease-out group-hover:scale-[1.05]",
+                    photo.fit === "contain" ? "object-contain" : "object-cover",
+                  )}
+                  style={{ objectPosition: photo.position }}
+                />
+                <span className="absolute inset-0 bg-linear-to-t from-ink/25 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
+              </button>
+            </Reveal>
+          );
+        })}
       </ul>
+
+      {photos.length > INITIAL_COUNT && (
+        <div className="mt-10 flex justify-center">
+          <button
+            type="button"
+            onClick={toggle}
+            aria-expanded={expanded}
+            aria-controls="gallery-grid"
+            className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-[0.95rem] font-extrabold text-ink shadow-soft ring-1 ring-lime-200 transition duration-300 hover:-translate-y-0.5 hover:ring-lime-300 sm:w-auto"
+          >
+            {expanded ? "Жасыру" : "Тағы көру"}
+            {expanded ? <ChevronUp className="size-4 text-lime-600" /> : <ChevronDown className="size-4 text-lime-600" />}
+          </button>
+        </div>
+      )}
 
       {/* Просмотр фото целиком, без обрезки */}
       {current && (

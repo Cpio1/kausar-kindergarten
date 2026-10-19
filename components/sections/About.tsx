@@ -1,5 +1,7 @@
 import { aboutStats } from "@/lib/content";
+import { getAboutPhoto } from "@/lib/images";
 import { Leaf, Star } from "@/components/ui/Decor";
+import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
@@ -11,6 +13,9 @@ const statTones = [
 ];
 
 export function About() {
+  // Фото появляется, только если в public/images добавлен main-page2
+  const photo = getAboutPhoto();
+
   return (
     <section id="about" className="relative overflow-hidden py-20 sm:py-28">
       <Leaf className="absolute top-20 right-[6%] w-12 rotate-45 text-lime-200" />
@@ -31,19 +36,35 @@ export function About() {
           </Reveal>
         </div>
 
-        <ul className="grid grid-cols-2 gap-4 sm:gap-5">
-          {aboutStats.map(({ icon: Icon, value, label }, i) => (
-            <Reveal as="li" key={value} delay={i * 100}>
-              <div className="group h-full rounded-[2rem] bg-white p-5 shadow-soft ring-1 ring-lime-100/70 transition duration-300 hover:-translate-y-1 hover:shadow-lift sm:p-7">
-                <span className={`grid size-12 place-items-center rounded-2xl ${statTones[i]} transition group-hover:rotate-6`}>
-                  <Icon className="size-6" />
-                </span>
-                <p className="mt-5 font-display text-2xl font-bold text-ink sm:text-3xl">{value}</p>
-                <p className="mt-1 text-sm font-bold text-ink-soft sm:text-base">{label}</p>
-              </div>
+        <div className="space-y-8">
+          {photo && (
+            <Reveal className="relative">
+              <span
+                aria-hidden
+                className="absolute inset-0 translate-x-3 translate-y-3 rounded-[2.5rem] rounded-br-[6rem] bg-lemon-200"
+              />
+              <PhotoFrame
+                photo={photo}
+                sizes="(min-width: 1024px) 560px, 92vw"
+                className="aspect-[16/10] rounded-[2.5rem] rounded-br-[6rem] shadow-soft ring-4 ring-white"
+              />
             </Reveal>
-          ))}
-        </ul>
+          )}
+
+          <ul className="grid grid-cols-2 gap-4 sm:gap-5">
+            {aboutStats.map(({ icon: Icon, value, label }, i) => (
+              <Reveal as="li" key={value} delay={i * 100}>
+                <div className="group h-full rounded-[2rem] bg-white p-5 shadow-soft ring-1 ring-lime-100/70 transition duration-300 hover:-translate-y-1 hover:shadow-lift sm:p-7">
+                  <span className={`grid size-12 place-items-center rounded-2xl ${statTones[i]} transition group-hover:rotate-6`}>
+                    <Icon className="size-6" />
+                  </span>
+                  <p className="mt-5 font-display text-2xl font-bold text-ink sm:text-3xl">{value}</p>
+                  <p className="mt-1 text-sm font-bold text-ink-soft sm:text-base">{label}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

@@ -44,7 +44,7 @@ export function PhotoFrame({
           fill
           sizes={sizes}
           priority={priority}
-          className={cn("object-cover", imageClassName)}
+          className={cn(photo.fit === "contain" ? "object-contain" : "object-cover", imageClassName)}
           style={{ objectPosition: photo.position }}
         />
       ) : (
