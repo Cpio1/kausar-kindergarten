@@ -41,7 +41,7 @@ export type Group = {
 
 export const groups: Group[] = [
   { slug: "balausa", name: "Балауса", emoji: "🧸", tone: "mint" },
-  { slug: "baldyrgan", name: "Балдырған", emoji: "🎨", tone: "lemon" },
+  { slug: "baldyrgan", name: "Балғын", emoji: "🎨", tone: "lemon" },
   { slug: "sultan", name: "Сұлтан", emoji: "🎓", tone: "lime" },
 ];
 

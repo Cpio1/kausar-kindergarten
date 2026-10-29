@@ -169,7 +169,7 @@ function BalausaArt({ className }: { className?: string }) {
   );
 }
 
-/** Балдырған: лист бумаги, палитра, карандаши, кисточка и цветок */
+/** Балғын: лист бумаги, палитра, карандаши, кисточка и цветок */
 function BaldyrganArt({ className }: { className?: string }) {
   const p = "gi-baldyrgan";
   return (
